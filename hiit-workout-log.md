@@ -1,0 +1,353 @@
+# HIIT Workout Log
+
+Compact one-line-per-workout log, regenerated from `data/workouts.json`. 349 workouts total.
+
+- 2012-04-20 | Running | Garmin running | 0.4 min | source: garmin
+- 2012-04-26 | Running | Garmin running | 49 min, avg HR 148 | source: garmin
+- 2012-04-28 | Running | Garmin running | 67.5 min, avg HR 130 | source: garmin
+- 2012-06-02 | Running | Garmin running | 21 min, avg HR 161 | source: garmin
+- 2012-06-10 | Running | Garmin running | 20.1 min, avg HR 168 | source: garmin
+- 2012-06-11 | Running | Garmin running | 18.7 min, avg HR 163 | source: garmin
+- 2012-06-22 | Running | Garmin running | 43.8 min, avg HR 144 | source: garmin
+- 2012-06-23 | Running | Garmin running | 115.2 min, avg HR 132 | source: garmin
+- 2012-06-29 | Running | Garmin running | 16.9 min, avg HR 178 | source: garmin
+- 2012-07-14 | Running | Garmin running | 71.7 min, avg HR 142 | source: garmin
+- 2012-07-21 | Running | Garmin running | 204.2 min, avg HR 142 | source: garmin
+- 2012-08-10 | Running | Garmin running | 35.9 min, avg HR 151 | source: garmin
+- 2012-08-12 | Running | Garmin running | 0.2 min, avg HR 181 | source: garmin
+- 2012-09-02 | Running | Garmin running | 16 min, avg HR 172 | source: garmin
+- 2012-09-02 | Running | Garmin running | 6.6 min, avg HR 166 | source: garmin
+- 2012-09-14 | Running | Garmin running | 17 min, avg HR 172 | source: garmin
+- 2012-09-22 | Running | Garmin running | 62.8 min, avg HR 164 | source: garmin
+- 2012-11-04 | Running | Garmin running | 48.9 min, avg HR 151 | source: garmin
+- 2012-11-16 | Running | Garmin running | 23 min, avg HR 163 | source: garmin
+- 2012-11-17 | Running | Garmin running | 22.9 min, avg HR 167 | source: garmin
+- 2013-02-15 | Running | Garmin running | 16.7 min, avg HR 172 | source: garmin
+- 2013-03-08 | Running | Garmin running | 17.4 min, avg HR 166 | source: garmin
+- 2013-03-29 | Running | Garmin running | 120.8 min, avg HR 138 | source: garmin
+- 2013-03-29 | Running | Garmin running | 0 min, avg HR 106 | source: garmin
+- 2013-05-24 | Running | Garmin running | 345.7 min | source: garmin
+- 2013-07-14 | Running | Garmin running | 66 min | source: garmin
+- 2013-09-24 | Running | Garmin running | 68.4 min, avg HR 135 | source: garmin
+- 2013-10-23 | Running | Garmin running | 19.4 min, avg HR 165 | source: garmin
+- 2014-01-21 | Running | Garmin running | 36.7 min, avg HR 150 | source: garmin
+- 2014-02-17 | Running | Garmin running | 27.6 min, avg HR 174 | source: garmin
+- 2014-02-22 | Running | Garmin running | 36.2 min, avg HR 141 | source: garmin
+- 2014-02-22 | Running | Garmin running | 40.8 min, avg HR 169 | source: garmin
+- 2014-02-24 | Running | Garmin running | 38.9 min, avg HR 166 | source: garmin
+- 2014-02-28 | Running | Garmin running | 37.1 min, avg HR 169 | source: garmin
+- 2014-04-05 | Running | Garmin running | 39.9 min | source: garmin
+- 2014-04-06 | Running | Garmin running | 12.3 min | source: garmin
+- 2014-04-09 | Running | Garmin running | 38.2 min | source: garmin
+- 2014-04-22 | Running | Garmin running | 39 min | source: garmin
+- 2014-04-26 | Running | Garmin running | 50.5 min | source: garmin
+- 2014-04-28 | Running | Garmin running | 50.6 min, avg HR 158 | source: garmin
+- 2014-04-30 | Running | Garmin running | 50.1 min, avg HR 168 | source: garmin
+- 2014-05-03 | Running | Garmin running | 38.3 min, avg HR 161 | source: garmin
+- 2014-05-10 | Running | Garmin running | 37.4 min, avg HR 158 | source: garmin
+- 2014-05-17 | Running | Garmin running | 38.1 min, avg HR 160 | source: garmin
+- 2014-05-19 | Running | Garmin running | 50 min, avg HR 163 | source: garmin
+- 2014-05-24 | Running | Garmin running | 12.8 min | source: garmin
+- 2014-06-19 | Running | Garmin running | 22.4 min, avg HR 167 | source: garmin
+- 2014-06-23 | Running | Garmin running | 22.3 min, avg HR 167 | source: garmin
+- 2014-08-06 | Running | Garmin running | 10.4 min, avg HR 169 | source: garmin
+- 2014-08-16 | Running | Garmin running | 38 min, avg HR 166 | source: garmin
+- 2014-08-18 | Running | Garmin running | 0 min | source: garmin
+- 2014-08-19 | Running | Garmin running | 15.4 min | source: garmin
+- 2022-11-16 | Running | Running | 41.7 min | source: garmin
+- 2022-11-23 | Running | Running | 27 min | source: garmin
+- 2022-11-23 | Running | Street Running | 27 min | source: garmin
+- 2022-12-11 | Running | Street Running | 26.4 min | source: garmin
+- 2022-12-13 | Running | Street Running | 23.7 min | source: garmin
+- 2022-12-16 | Running | Street Running | 22.7 min | source: garmin
+- 2022-12-27 | Running | Street Running | 24 min | source: garmin
+- 2023-01-04 | Running | Street Running | 36.8 min, avg HR 168 | source: garmin
+- 2023-12-12 | Running | Treadmill Running | 22.4 min, avg HR 141 | source: garmin
+- 2023-12-18 | Running | Running | 17.6 min, avg HR 168 | source: garmin
+- 2024-03-16 | Running | Running | 19.9 min, avg HR 150 | source: garmin
+- 2024-03-31 | Cycling | Cycling | 72.6 min, avg HR 117 | source: garmin
+- 2024-04-02 | Running | Running | 18.3 min, avg HR 160 | source: garmin
+- 2024-04-02 | HIIT | HIIT | 15.1 min, avg HR 137 | source: garmin
+- 2024-05-19 | Running | Running | 12.5 min, avg HR 155 | source: garmin
+- 2024-05-23 | Running | Running | 17.8 min, avg HR 165 | source: garmin
+- 2024-05-23 | HIIT | HIIT | 14.8 min, avg HR 144 | source: garmin
+- 2024-06-09 | Running | Running | 17.8 min, avg HR 167 | source: garmin
+- 2024-06-09 | HIIT | HIIT | 7.9 min, avg HR 150 | source: garmin
+- 2024-06-16 | Running | Running | 11.7 min, avg HR 158 | source: garmin
+- 2024-06-17 | HIIT | HIIT | 54.2 min, avg HR 142 | source: garmin
+- 2024-06-21 | HIIT | HIIT | 42.3 min, avg HR 137 | source: garmin
+- 2024-07-27 | HIIT | HIIT | 56.3 min, avg HR 153 | source: garmin
+- 2024-08-03 | HIIT | HIIT | 47.7 min, avg HR 148 | source: garmin
+- 2024-08-17 | HIIT | HIIT | 48.9 min, avg HR 139 | source: garmin
+- 2024-08-21 | HIIT | HIIT | 52.9 min, avg HR 144 | source: garmin
+- 2024-08-24 | HIIT | HIIT | 50 min, avg HR 144 | source: garmin
+- 2024-08-31 | HIIT | HIIT | 49 min, avg HR 135 | source: garmin
+- 2024-09-01 | Running | Running | 22 min, avg HR 160 | source: garmin
+- 2024-09-07 | HIIT | HIIT | 60 min, avg HR 134 | source: garmin
+- 2024-09-09 | HIIT | HIIT | 47.1 min, avg HR 148 | source: garmin
+- 2024-09-11 | Running | Running | 20.9 min, avg HR 163 | source: garmin
+- 2024-09-11 | HIIT | HIIT | 15 min, avg HR 143 | source: garmin
+- 2024-09-19 | HIIT | HIIT | 48 min, avg HR 145 | source: garmin
+- 2024-09-21 | HIIT | HIIT | 44 min, avg HR 146 | source: garmin
+- 2024-09-24 | HIIT | HIIT | 53 min, avg HR 134 | source: garmin
+- 2024-09-28 | HIIT | HIIT | 50 min, avg HR 134 | source: garmin
+- 2024-09-29 | HIIT | HIIT | 44.7 min, avg HR 155 | source: garmin
+- 2024-10-05 | HIIT | HIIT | 58.6 min, avg HR 122 | source: garmin
+- 2024-10-13 | HIIT | HIIT | 52.6 min, avg HR 128 | source: garmin
+- 2024-10-14 | Other | Crossfit | 11.5 min, avg HR 155 | source: garmin
+- 2024-10-19 | HIIT | HIIT | 44.6 min, avg HR 132 | source: garmin
+- 2024-10-26 | HIIT | HIIT | 54 min, avg HR 136 | source: garmin
+- 2024-10-28 | Other | Strength | 31.5 min, avg HR 106 | source: garmin
+- 2024-11-02 | HIIT | HIIT | 50.9 min, avg HR 127 | source: garmin
+- 2024-11-05 | HIIT | HIIT | 64.7 min, avg HR 129 | source: garmin
+- 2024-11-08 | HIIT | Kattelbell workshop | 102.1 min, avg HR 124 | source: garmin
+- 2024-11-09 | HIIT | HIIT | 38.8 min, avg HR 117 | source: garmin
+- 2024-11-12 | HIIT | HIIT | 51.5 min, avg HR 121 | source: garmin
+- 2024-11-13 | Other | Crossfit | 19.9 min, avg HR 153 | source: garmin
+- 2024-11-16 | HIIT | HIIT | 55 min, avg HR 128 | source: garmin
+- 2024-11-21 | Running | Running | 23.6 min, avg HR 160 | source: garmin
+- 2024-11-23 | HIIT | HIIT | 50.3 min, avg HR 136 | source: garmin
+- 2024-11-25 | HIIT | HIIT | 61.9 min, avg HR 107 | source: garmin
+- 2024-11-26 | HIIT | HIIT | 32.5 min, avg HR 151 | source: garmin
+- 2024-11-30 | HIIT | HIIT | 48.7 min, avg HR 128 | source: garmin
+- 2024-12-05 | HIIT | HIIT | 51.2 min, avg HR 131 | source: garmin
+- 2024-12-07 | HIIT | HIIT | 52.7 min, avg HR 137 | source: garmin
+- 2024-12-14 | HIIT | HIIT | 47.3 min, avg HR 135 | source: garmin
+- 2024-12-14 | HIIT | HIIT | 4.9 min, avg HR 125 | source: garmin
+- 2024-12-17 | HIIT | HIIT | 54 min, avg HR 128 | source: garmin
+- 2024-12-18 | Other | Crossfit | 22 min, avg HR 126 | source: garmin
+- 2024-12-21 | HIIT | HIIT | 44.6 min, avg HR 137 | source: garmin
+- 2024-12-24 | HIIT | HIIT | 51.5 min, avg HR 128 | source: garmin
+- 2024-12-25 | HIIT | HIIT | 49.4 min, avg HR 126 | source: garmin
+- 2024-12-28 | HIIT | HIIT | 50.6 min, avg HR 141 | source: garmin
+- 2025-01-05 | HIIT | HIIT | 50.4 min, avg HR 135 | source: garmin
+- 2025-01-07 | HIIT | HIIT | 60 min, avg HR 138 | source: garmin
+- 2025-01-11 | HIIT | HIIT | 54.2 min, avg HR 137 | source: garmin
+- 2025-01-13 | HIIT | HIIT | 43.8 min, avg HR 120 | source: garmin
+- 2025-01-15 | HIIT | HIIT | 54.8 min, avg HR 121 | source: garmin
+- 2025-01-18 | HIIT | HIIT | 49.5 min, avg HR 130 | source: garmin
+- 2025-01-20 | HIIT | HIIT | 49.2 min, avg HR 134 | source: garmin
+- 2025-01-25 | HIIT | HIIT | 57.5 min, avg HR 130 | source: garmin
+- 2025-01-28 | HIIT | HIIT | 56.3 min, avg HR 121 | source: garmin
+- 2025-01-30 | HIIT | HIIT | 73.9 min, avg HR 116 | source: garmin
+- 2025-02-01 | HIIT | HIIT | 58.7 min, avg HR 134 | source: garmin
+- 2025-02-02 | HIIT | HIIT | 58 min, avg HR 105 | source: garmin
+- 2025-02-04 | HIIT | HIIT | 48 min, avg HR 132 | source: garmin
+- 2025-02-08 | HIIT | HIIT | 54.5 min, avg HR 127 | source: garmin
+- 2025-02-11 | HIIT | HIIT | 48.3 min, avg HR 133 | source: garmin
+- 2025-02-15 | HIIT | HIIT | 51.2 min, avg HR 133 | source: garmin
+- 2025-02-19 | HIIT | HIIT | 49.5 min, avg HR 131 | source: garmin
+- 2025-02-20 | HIIT | HIIT | 51.8 min, avg HR 114 | source: garmin
+- 2025-02-22 | HIIT | HIIT | 51.6 min, avg HR 134 | source: garmin
+- 2025-02-25 | HIIT | HIIT | 51.1 min, avg HR 126 | source: garmin
+- 2025-02-27 | HIIT | HIIT | 57.8 min, avg HR 108 | source: garmin
+- 2025-03-01 | HIIT | HIIT | 59 min, avg HR 141 | source: garmin
+- 2025-03-03 | Other | Strength | 47.6 min, avg HR 96 | source: garmin
+- 2025-03-03 | HIIT | HIIT | 33.6 min, avg HR 143 | source: garmin
+- 2025-03-05 | HIIT | HIIT | 52.9 min, avg HR 117 | source: garmin
+- 2025-03-08 | HIIT | HIIT | 68.7 min, avg HR 115 | source: garmin
+- 2025-03-09 | Other | Strength | 60.1 min, avg HR 104 | source: garmin
+- 2025-03-11 | HIIT | HIIT | 60.4 min, avg HR 115 | source: garmin
+- 2025-03-15 | HIIT | HIIT | 66.4 min, avg HR 127 | source: garmin
+- 2025-03-16 | Other | Strength | 72.3 min, avg HR 113 | source: garmin
+- 2025-03-18 | HIIT | HIIT | 49.9 min, avg HR 123 | source: garmin
+- 2025-03-20 | Other | Strength | 100.9 min, avg HR 120 | source: garmin
+- 2025-03-22 | HIIT | HIIT | 74.8 min, avg HR 123 | source: garmin
+- 2025-03-23 | HIIT | HIIT | 140.5 min, avg HR 114 | source: garmin
+- 2025-03-26 | HIIT | HIIT | 62.1 min, avg HR 134 | source: garmin
+- 2025-03-28 | HIIT | HIIT | 106.7 min, avg HR 120 | source: garmin
+- 2025-03-29 | Running | Running | 24.1 min, avg HR 153 | source: garmin
+- 2025-04-01 | HIIT | HIIT | 61.6 min, avg HR 124 | source: garmin
+- 2025-04-02 | Other | Strength | 53.6 min, avg HR 94 | source: garmin
+- 2025-04-05 | HIIT | HIIT | 52.2 min, avg HR 136 | source: garmin
+- 2025-04-06 | Other | Strength | 52.1 min, avg HR 94 | source: garmin
+- 2025-04-08 | HIIT | HIIT | 58.6 min, avg HR 127 | source: garmin
+- 2025-04-11 | Running | Running | 11.4 min, avg HR 147 | source: garmin
+- 2025-04-11 | HIIT | HIIT | 16.1 min, avg HR 118 | source: garmin
+- 2025-04-12 | HIIT | HIIT | 92.8 min, avg HR 122 | source: garmin
+- 2025-04-15 | HIIT | HIIT | 66.2 min, avg HR 110 | source: garmin
+- 2025-04-17 | Running | Running | 10.3 min, avg HR 152 | source: garmin
+- 2025-04-17 | HIIT | HIIT | 29 min, avg HR 137 | source: garmin
+- 2025-04-19 | HIIT | HIIT | 56.1 min, avg HR 136 | source: garmin
+- 2025-04-20 | Other | CrossFit gps | 42.3 min, avg HR 132 | source: garmin
+- 2025-04-22 | HIIT | CrossFit no-gps | 58.7 min, avg HR 128 | source: garmin
+- 2025-04-25 | HIIT | CrossFit no-gps | 58.5 min, avg HR 119 | source: garmin
+- 2025-04-29 | HIIT | CrossFit no-gps | 1.4 min, avg HR 110 | source: garmin
+- 2025-04-29 | Other | Garmin 62 | 1.4 min, avg HR 110 | source: garmin
+- 2025-05-02 | HIIT | CrossFit no-gps | 15 min, avg HR 117 | source: garmin
+- 2025-05-03 | HIIT | CrossFit no-gps | 118.8 min, avg HR 116 | source: garmin
+- 2025-05-04 | Other | Strength | 50 min, avg HR 97 | source: garmin
+- 2025-05-06 | HIIT | CrossFit no-gps | 67.2 min, avg HR 119 | source: garmin
+- 2025-05-10 | HIIT | CrossFit no-gps | 101.2 min, avg HR 123 | source: garmin
+- 2025-05-12 | HIIT | CrossFit no-gps | 58.3 min, avg HR 130 | source: garmin
+- 2025-05-15 | HIIT | CrossFit no-gps | 61.4 min, avg HR 122 | source: garmin
+- 2025-05-20 | HIIT | CrossFit no-gps | 60.2 min, avg HR 130 | source: garmin
+- 2025-05-24 | HIIT | CrossFit no-gps | 54.1 min, avg HR 133 | source: garmin
+- 2025-05-28 | HIIT | CrossFit no-gps | 72.6 min, avg HR 128 | source: garmin
+- 2025-05-29 | Other | Strength | 35.1 min, avg HR 104 | source: garmin
+- 2025-05-31 | HIIT | CrossFit no-gps | 64.9 min, avg HR 121 | source: garmin
+- 2025-06-02 | Other | Strength | 77.3 min, avg HR 114 | source: garmin
+- 2025-06-04 | HIIT | CrossFit no-gps | 74.2 min, avg HR 129 | source: garmin
+- 2025-06-06 | HIIT | CrossFit gps | 55.6 min, avg HR 131 | source: garmin
+- 2025-06-10 | HIIT | CrossFit no-gps | 56.5 min, avg HR 132 | source: garmin
+- 2025-06-12 | HIIT | CrossFit gps | 47.9 min, avg HR 137 | source: garmin
+- 2025-06-16 | Running | Running | 16.7 min, avg HR 155 | source: garmin
+- 2025-06-16 | HIIT | CrossFit no-gps | 15 min, avg HR 156 | source: garmin
+- 2025-06-18 | HIIT | CrossFit no-gps | 46 min, avg HR 130 | source: garmin
+- 2025-06-19 | HIIT | CrossFit no-gps | 60 min, avg HR 119 | source: garmin
+- 2025-06-21 | HIIT | CrossFit no-gps | 54.5 min, avg HR 130 | source: garmin
+- 2025-06-23 | HIIT | CrossFit no-gps | 48 min, avg HR 121 | source: garmin
+- 2025-06-27 | HIIT | CrossFit no-gps | 72.3 min, avg HR 102 | source: garmin
+- 2025-06-28 | HIIT | CrossFit no-gps | 71.3 min, avg HR 121 | source: garmin
+- 2025-07-01 | HIIT | CrossFit no-gps | 49.5 min, avg HR 137 | source: garmin
+- 2025-07-02 | HIIT | Gym session | 66.3 min, avg HR 121 | source: garmin
+- 2025-07-04 | HIIT | Gym session | 51.2 min, avg HR 96 | source: garmin
+- 2025-07-05 | HIIT | CrossFit no-gps | 50.4 min, avg HR 132 | source: garmin
+- 2025-07-08 | HIIT | CrossFit no-gps | 64.4 min, avg HR 121 | source: garmin
+- 2025-07-10 | HIIT | CrossFit no-gps | 63.8 min, avg HR 132 | source: garmin
+- 2025-07-12 | HIIT | Hotel gym | 64.7 min, avg HR 106 | source: garmin
+- 2025-07-13 | Running | easy vo2max Run Workout | 41.9 min, avg HR 152 | source: garmin
+- 2025-07-15 | HIIT | CrossFit no-gps | 55 min, avg HR 124 | source: garmin
+- 2025-07-19 | HIIT | CrossFit no-gps | 53.6 min, avg HR 125 | source: garmin
+- 2025-07-20 | Other | Walking | 21.2 min, avg HR 92 | source: garmin
+- 2025-07-22 | HIIT | CrossFit no-gps | 62.7 min, avg HR 116 | source: garmin
+- 2025-07-24 | Running | easy vo2max Run Workout | 30.1 min, avg HR 142 | source: garmin
+- 2025-07-26 | HIIT | CrossFit no-gps | 65 min, avg HR 118 | source: garmin
+- 2025-07-27 | Running | Base | 34.2 min, avg HR 163 | source: garmin
+- 2025-07-29 | HIIT | CrossFit no-gps | 59 min, avg HR 119 | source: garmin
+- 2025-07-31 | HIIT | CrossFit no-gps | 59.6 min, avg HR 127 | source: garmin
+- 2025-08-02 | HIIT | CrossFit no-gps | 66.1 min, avg HR 119 | source: garmin
+- 2025-08-05 | HIIT | CrossFit no-gps | 65.3 min, avg HR 109 | source: garmin
+- 2025-08-07 | HIIT | Gym | 72.3 min, avg HR 98 | source: garmin
+- 2025-08-09 | HIIT | CrossFit no-gps | 55.6 min, avg HR 121 | source: garmin
+- 2025-08-14 | HIIT | Gym | 80.8 min, avg HR 105 | source: garmin
+- 2025-08-16 | HIIT | CrossFit no-gps | 49.2 min, avg HR 117 | source: garmin
+- 2025-08-18 | HIIT | Vacation gym | 54.4 min, avg HR 114 | source: garmin
+- 2025-08-20 | HIIT | Vacation GYM | 61.2 min, avg HR 96 | source: garmin
+- 2025-08-20 | Other | Vacation Walk | 96.7 min, avg HR 80 | source: garmin
+- 2025-08-23 | HIIT | CrossFit no-gps | 61.7 min, avg HR 132 | source: garmin
+- 2025-08-25 | HIIT | CrossFit no-gps | 90.8 min, avg HR 111 | source: garmin
+- 2025-08-27 | HIIT | CrossFit no-gps | 56.2 min, avg HR 128 | source: garmin
+- 2025-08-28 | Running | Running | 31.8 min, avg HR 150 | source: garmin
+- 2025-08-30 | HIIT | CrossFit no-gps | 45.8 min, avg HR 126 | source: garmin
+- 2025-09-01 | HIIT | GYM | 82.3 min, avg HR 78 | source: garmin
+- 2025-09-02 | HIIT | CrossFit no-gps | 60 min, avg HR 123 | source: garmin
+- 2025-09-04 | HIIT | CrossFit no-gps | 61.6 min, avg HR 126 | source: garmin
+- 2025-09-07 | HIIT | CrossFit no-gps | 86.3 min, avg HR 123 | source: garmin
+- 2025-09-09 | HIIT | CrossFit no-gps | 52 min, avg HR 124 | source: garmin
+- 2025-09-13 | HIIT | CrossFit no-gps | 58.4 min, avg HR 123 | source: garmin
+- 2025-09-14 | HIIT | Gym with barak | 77.5 min, avg HR 85 | source: garmin
+- 2025-09-16 | HIIT | CrossFit no-gps | 67 min, avg HR 114 | source: garmin
+- 2025-09-17 | HIIT | Jerusalem hotel gym | 35 min, avg HR 126 | source: garmin
+- 2025-09-18 | HIIT | Jerusalem hotel gym | 67.4 min, avg HR 92 | source: garmin
+- 2025-09-20 | HIIT | CrossFit no-gps | 51.1 min, avg HR 127 | source: garmin
+- 2025-09-24 | HIIT | CrossFit no-gps | 44.8 min, avg HR 128 | source: garmin
+- 2025-09-27 | HIIT | CrossFit no-gps | 48.2 min, avg HR 137 | source: garmin
+- 2025-09-30 | HIIT | CrossFit no-gps | 58.6 min, avg HR 128 | source: garmin
+- 2025-10-04 | HIIT | CrossFit no-gps | 53 min, avg HR 130 | source: garmin
+- 2025-10-06 | HIIT | CrossFit no-gps | 43.2 min, avg HR 136 | source: garmin
+- 2025-10-08 | HIIT | CrossFit no-gps | 73.2 min, avg HR 121 | source: garmin
+- 2025-10-11 | HIIT | CrossFit no-gps | 53.8 min, avg HR 139 | source: garmin
+- 2025-10-13 | HIIT | CrossFit no-gps | 44.9 min, avg HR 136 | source: garmin
+- 2025-10-16 | HIIT | CrossFit no-gps | 51 min, avg HR 123 | source: garmin
+- 2025-10-18 | HIIT | CrossFit no-gps | 53.5 min, avg HR 123 | source: garmin
+- 2025-10-21 | HIIT | CrossFit no-gps | 76.4 min, avg HR 115 | source: garmin
+- 2025-10-23 | HIIT | CrossFit no-gps | 52 min, avg HR 126 | source: garmin
+- 2025-10-25 | HIIT | CrossFit no-gps | 65.7 min, avg HR 118 | source: garmin
+- 2025-10-27 | HIIT | CrossFit no-gps | 47.7 min, avg HR 131 | source: garmin
+- 2025-10-29 | Running | Running | 19.5 min, avg HR 138 | source: garmin
+- 2025-10-31 | HIIT | CrossFit GPS SEA SIDE ASHDOD | 39.3 min, avg HR 142 | source: garmin
+- 2025-11-04 | HIIT | CrossFit no-gps | 71.8 min, avg HR 113 | source: garmin
+- 2025-11-06 | HIIT | CrossFit no-gps | 71 min, avg HR 126 | source: garmin
+- 2025-11-07 | Running | Running | 18.9 min, avg HR 114 | source: garmin
+- 2025-11-08 | HIIT | CrossFit no-gps | 65.7 min, avg HR 125 | source: garmin
+- 2025-11-11 | HIIT | CrossFit no-gps | 60.3 min, avg HR 130 | source: garmin
+- 2025-11-15 | HIIT | CrossFit no-gps | 73.3 min, avg HR 125 | source: garmin
+- 2025-11-18 | HIIT | CrossFit no-gps | 68 min, avg HR 122 | source: garmin
+- 2025-11-20 | Running | Running | 21.2 min, avg HR 122 | source: garmin
+- 2025-11-22 | HIIT | CrossFit no-gps | 53.8 min, avg HR 134 | source: garmin
+- 2025-11-24 | HIIT | CrossFit no-gps | 65.8 min, avg HR 124 | source: garmin
+- 2025-11-27 | HIIT | CrossFit no-gps | 64.5 min, avg HR 124 | source: garmin
+- 2025-11-29 | HIIT | CrossFit no-gps | 59.5 min, avg HR 122 | source: garmin
+- 2025-12-02 | HIIT | CrossFit no-gps | 64.4 min, avg HR 122 | source: garmin
+- 2025-12-04 | HIIT | CrossFit no-gps | 61.2 min, avg HR 122 | source: garmin
+- 2025-12-06 | HIIT | CrossFit no-gps | 60.3 min, avg HR 139 | source: garmin
+- 2025-12-08 | HIIT | CrossFit no-gps | 67.5 min, avg HR 131 | source: garmin
+- 2025-12-13 | HIIT | CrossFit no-gps | 51.5 min, avg HR 129 | source: garmin
+- 2025-12-15 | HIIT | CrossFit no-gps | 63.7 min, avg HR 122 | source: garmin
+- 2025-12-18 | HIIT | CrossFit no-gps | 55.4 min, avg HR 138 | source: garmin
+- 2025-12-20 | HIIT | CrossFit no-gps | 60 min, avg HR 130 | source: garmin
+- 2025-12-23 | HIIT | CrossFit no-gps | 69 min, avg HR 120 | source: garmin
+- 2025-12-27 | HIIT | CrossFit no-gps | 64.3 min, avg HR 133 | source: garmin
+- 2025-12-29 | HIIT | CrossFit no-gps | 55 min, avg HR 127 | source: garmin
+- 2026-01-03 | HIIT | CrossFit no-gps | 61.8 min, avg HR 126 | source: garmin
+- 2026-01-10 | HIIT | CrossFit no-gps | 58.4 min, avg HR 129 | source: garmin
+- 2026-01-13 | HIIT | CrossFit no-gps | 67.4 min, avg HR 133 | source: garmin
+- 2026-01-17 | HIIT | CrossFit no-gps | 62.1 min, avg HR 128 | source: garmin
+- 2026-01-20 | HIIT | CrossFit no-gps | 69.2 min, avg HR 126 | source: garmin
+- 2026-01-21 | HIIT | CrossFit no-gps | 57 min, avg HR 128 | source: garmin
+- 2026-01-24 | HIIT | CrossFit no-gps | 60.5 min, avg HR 131 | source: garmin
+- 2026-01-27 | HIIT | CrossFit no-gps | 64.5 min, avg HR 128 | source: garmin
+- 2026-01-31 | HIIT | CrossFit no-gps | 65.9 min, avg HR 138 | source: garmin
+- 2026-02-07 | HIIT | CrossFit no-gps | 60 min, avg HR 128 | source: garmin
+- 2026-02-10 | HIIT | CrossFit no-gps | 68.5 min, avg HR 131 | source: garmin
+- 2026-02-12 | HIIT | CrossFit no-gps | 64.3 min, avg HR 127 | source: garmin
+- 2026-02-14 | HIIT | CrossFit no-gps | 65.2 min, avg HR 129 | source: garmin
+- 2026-02-24 | HIIT | CrossFit no-gps | 71.1 min, avg HR 122 | source: garmin
+- 2026-03-07 | HIIT | CrossFit no-gps | 61.4 min, avg HR 113 | source: garmin
+- 2026-03-14 | HIIT | CrossFit no-gps | 54.8 min, avg HR 121 | source: garmin
+- 2026-03-17 | HIIT | CrossFit no-gps | 55.7 min, avg HR 128 | source: garmin
+- 2026-03-18 | HIIT | CrossFit no-gps | 63.3 min, avg HR 95 | source: garmin
+- 2026-03-21 | HIIT | CrossFit no-gps | 60 min, avg HR 103 | source: garmin
+- 2026-03-28 | HIIT | CrossFit no-gps | 64.1 min, avg HR 89 | source: garmin
+- 2026-03-31 | HIIT | CrossFit no-gps | 54.4 min, avg HR 120 | source: garmin
+- 2026-04-06 | HIIT | CrossFit no-gps | 63.3 min, avg HR 86 | source: garmin
+- 2026-04-09 | HIIT | CrossFit no-gps | 65.8 min, avg HR 81 | source: garmin
+- 2026-04-13 | HIIT | CrossFit no-gps | 56 min, avg HR 110 | source: garmin
+- 2026-04-16 | HIIT | CrossFit no-gps | 67.5 min, avg HR 83 | source: garmin
+- 2026-04-23 | HIIT | CrossFit no-gps | 68.3 min, avg HR 103 | source: garmin
+- 2026-04-26 | HIIT | CrossFit no-gps | 61.3 min, avg HR 98 | source: garmin
+- 2026-05-02 | HIIT | CrossFit no-gps | 63 min, avg HR 112 | source: garmin
+- 2026-05-06 | HIIT | CrossFit no-gps | 60 min, avg HR 130 | source: garmin
+- 2026-05-07 | Running | Running | 41.4 min, avg HR 141 | source: garmin
+- 2026-05-09 | HIIT | CrossFit no-gps | 60.3 min, avg HR 130 | source: garmin
+- 2026-05-12 | HIIT | CrossFit no-gps | 58.2 min, avg HR 125 | source: garmin
+- 2026-05-16 | HIIT | CrossFit no-gps | 52.5 min, avg HR 121 | source: garmin
+- 2026-05-17 | HIIT | CrossFit gps | 48.9 min, avg HR 138 | source: garmin
+- 2026-05-19 | HIIT | CrossFit no-gps | 57.4 min, avg HR 120 | source: garmin
+- 2026-05-23 | HIIT | CrossFit no-gps | 62.9 min, avg HR 126 | source: garmin
+- 2026-05-23 | Running | Running | 51.8 min, avg HR 128 | source: garmin
+- 2026-05-26 | HIIT | CrossFit no-gps | 60 min, avg HR 108 | source: garmin
+- 2026-05-30 | HIIT | CrossFit no-gps | 53.9 min, avg HR 126 | source: garmin
+- 2026-06-02 | HIIT | CrossFit no-gps | 60 min, avg HR 116 | source: garmin
+- 2026-06-04 | HIIT | CrossFit no-gps | 58.8 min, avg HR 138 | source: garmin
+- 2026-06-06 | HIIT | CrossFit no-gps | 62 min, avg HR 125 | source: garmin
+- 2026-06-07 | HIIT | CrossFit no-gps | 55 min, avg HR 131 | source: garmin
+- 2026-06-09 | HIIT | CrossFit no-gps | 48.1 min, avg HR 133 | source: garmin
+- 2026-06-12 | HIIT | CrossFit BMU Workshop | 133.5 min, avg HR 118 | source: garmin
+- 2026-06-13 | HIIT | CrossFit no-gps | 57 min, avg HR 128 | source: garmin
+- 2026-06-16 | HIIT | CrossFit no-gps | 54.8 min, avg HR 125 | source: garmin
+- 2026-06-20 | HIIT | CrossFit no-gps | 67.5 min, avg HR 113 | source: garmin
+- 2026-06-23 | HIIT | CrossFit no-gps | 67 min, avg HR 119 | source: garmin
+- 2026-06-27 | HIIT | CrossFit no-gps | 57.9 min, avg HR 127 | source: garmin
+- 2026-06-30 | HIIT | CrossFit no-gps | 66.6 min, avg HR 106 | source: garmin
+- 2026-07-04 | HIIT | CrossFit no-gps | 64.7 min, avg HR 120 | source: garmin
+- 2026-07-07 | HIIT | CrossFit no-gps | 68.6 min, avg HR 123 | source: garmin
+- 2026-07-11 | HIIT | CrossFit no-gps | 56.1 min, avg HR 127 | source: garmin
+- 2026-07-14 | HIIT | CrossFit no-gps | 55.9 min, avg HR 108 | source: garmin
+- 2026-07-18 | HIIT | CrossFit no-gps | 56.2 min, avg HR 127 | source: garmin
+- 2026-07-21 | HIIT | CrossFit no-gps | 60.1 min, avg HR 114 | source: garmin
+- 2026-07-25 | HIIT | CrossFit no-gps | 58.3 min, avg HR 123 | source: garmin
+- 2026-07-28 | HIIT | CrossFit no-gps | 62 min, avg HR 123 | source: garmin
+- 2026-07-30 | HIIT | CrossFit no-gps | 62.3 min, avg HR 134 | source: garmin
+- 2026-08-01 | HIIT | CrossFit no-gps | 67 min, avg HR 129 | source: garmin
+- 2026-08-04 | HIIT | CrossFit no-gps | 61.8 min, avg HR 114 | source: garmin
+- 2026-08-08 | HIIT | CrossFit no-gps | 70.3 min, avg HR 116 | source: garmin
+- 2026-08-11 | HIIT | CrossFit no-gps | 79.3 min, avg HR 119 | source: garmin
+- 2026-08-13 | HIIT | CrossFit no-gps | 61.8 min, avg HR 137 | source: garmin
+- 2026-08-15 | HIIT | CrossFit no-gps | 63.1 min, avg HR 127 | source: garmin
+- 2026-08-19 | HIIT | CrossFit no-gps | 64.9 min, avg HR 122 | source: garmin
+- 2026-08-22 | HIIT | CrossFit no-gps | 62.3 min, avg HR 128 | source: garmin
+- 2026-08-23 | HIIT | CrossFit no-gps | 58.8 min, avg HR 136 | source: garmin
+- 2026-09-01 | HIIT | CrossFit no-gps | 65.1 min, avg HR 116 | source: garmin
+- 2026-09-02 | HIIT | CrossFit no-gps | 59.5 min, avg HR 123 | source: garmin

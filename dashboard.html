@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HIIT Log</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#121214; --panel:#1b1b1f; --line:#2c2c31;
+    --ink:#EDEAE4; --dim:#9a978f;
+    --z1:#3E7CB1; --z2:#4FA97A; --z3:#D9A441; --z4:#E0702F; --z5:#D93A3A;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:Calibri,"Segoe UI",Arial,sans-serif;
+    font-size:16px;
+    padding:20px 16px 60px;
+  }
+  h1{
+    font-family:"Arial Black",Impact,sans-serif;
+    font-size:44px; letter-spacing:1px; margin:0 0 6px;
+  }
+  .sub{color:var(--dim); font-size:20px; font-weight:600; margin-bottom:24px}
+
+  .board{
+    background:var(--panel); border:1px solid var(--line); border-radius:10px;
+    padding:16px; margin-bottom:16px;
+    background-image: linear-gradient(var(--line) 1px, transparent 1px);
+    background-size: 100% 28px;
+  }
+  .board .name{font-weight:800; font-size:18px; margin-bottom:2px}
+  .board .date{color:var(--dim); font-size:12px; margin-bottom:12px}
+  .board-body{display:flex; flex-direction:column; gap:14px}
+  .board-photo{width:100%; border-radius:8px; border:1px solid var(--line); cursor:pointer; display:block}
+  .stats{display:grid; grid-template-columns:repeat(3,1fr); gap:10px}
+  .stats.stats-4{grid-template-columns:repeat(4,1fr)}
+  .stat{text-align:center}
+  .stat .v{font-size:20px; font-weight:800}
+  .stat .l{font-size:10px; color:var(--dim); text-transform:uppercase; letter-spacing:.5px}
+
+  /* Desktop: wider layout, panels side by side */
+  @media (min-width: 860px){
+    body{max-width:1100px; margin:0 auto; padding:32px 24px 60px}
+    .board-body{flex-direction:row; align-items:flex-start}
+    .board-photo{width:260px; flex-shrink:0}
+    .grid2{display:grid; grid-template-columns:3fr 2fr; gap:16px}
+  }
+
+  .panel{
+    background:var(--panel); border:1px solid var(--line); border-radius:10px;
+    padding:16px; margin-bottom:16px;
+  }
+  .panel h2{font-size:13px; text-transform:uppercase; letter-spacing:.5px; color:var(--dim); margin:0 0 12px}
+
+  .range{display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap}
+  .range button{
+    background:transparent; border:1px solid var(--line); color:var(--ink);
+    padding:6px 12px; border-radius:20px; font-size:12px; cursor:pointer;
+  }
+  .range button.active{background:var(--ink); color:var(--bg); border-color:var(--ink)}
+
+  .type-tabs{display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap}
+  .type-tabs button{
+    background:transparent; border:1px solid var(--line); color:var(--dim);
+    padding:8px 16px; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer;
+  }
+  .type-tabs button.active{background:var(--panel); color:var(--ink); border-color:var(--ink)}
+
+  .type-summary{color:var(--dim); font-size:13px; margin:-4px 0 14px}
+
+  .custom-range{display:flex; gap:10px; flex-wrap:wrap; align-items:end}
+  .custom-range label{display:flex; flex-direction:column; gap:4px; font-size:12px; color:var(--dim)}
+  .custom-range input[type=date]{
+    background:var(--bg); border:1px solid var(--line); color:var(--ink);
+    padding:6px 8px; border-radius:6px; font-family:inherit; font-size:13px;
+  }
+  .custom-range button{
+    background:var(--ink); color:var(--bg); border:none; border-radius:6px;
+    padding:8px 16px; font-size:13px; font-weight:700; cursor:pointer; height:32px;
+  }
+
+  .zone-legend{display:flex; gap:12px; flex-wrap:wrap; margin-top:10px; font-size:11px; color:var(--dim)}
+  .zone-legend span{display:inline-flex; align-items:center; gap:5px}
+  .dot{width:8px; height:8px; border-radius:50%; display:inline-block}
+
+  table.recent-table{width:100%; border-collapse:collapse; font-size:14px}
+  table.recent-table th{
+    text-align:right; color:var(--dim); font-size:11px; text-transform:uppercase;
+    letter-spacing:.5px; padding:8px 6px; border-bottom:1px solid var(--line);
+  }
+  table.recent-table td{padding:10px 6px; border-bottom:1px solid var(--line)}
+  table.recent-table tbody tr{cursor:pointer}
+  table.recent-table tbody tr:hover{background:rgba(255,255,255,.03)}
+  table.recent-table tbody tr.open{background:rgba(255,255,255,.05)}
+
+  .zone-breakdown{display:flex; flex-direction:column; gap:6px; margin-top:6px}
+  .zone-breakdown .row{display:flex; align-items:center; gap:8px; font-size:13px}
+  .zone-breakdown .row .dot{width:10px; height:10px; flex-shrink:0}
+  .zone-breakdown .row .bar-track{flex:1; background:var(--bg); border-radius:4px; height:8px; overflow:hidden}
+  .zone-breakdown .row .bar-fill{height:100%; border-radius:4px}
+
+  .recommendations{margin-top:14px; padding-top:14px; border-top:1px solid var(--line)}
+  .recommendations h3{font-size:12px; text-transform:uppercase; letter-spacing:.5px; color:var(--dim); margin:0 0 8px}
+  .recommendations ul{margin:0; padding-inline-start:20px}
+  .recommendations li{margin-bottom:6px}
+  .recommendations .empty{color:var(--dim); font-size:13px}
+
+  #empty{color:var(--dim); font-size:13px; text-align:center; padding:40px 0}
+</style>
+</head>
+<body>
+  <h1>HIIT LOG</h1>
+  <div class="sub" id="subtitle">טוען…</div>
+
+  <div id="lastWorkoutBoard" class="board" style="display:none">
+    <div class="name" id="lwName"></div>
+    <div class="date" id="lwDate"></div>
+    <div class="board-body">
+      <img id="lwPhoto" class="board-photo" style="display:none" onclick="window.open(this.src)">
+      <div class="stats stats-4" style="flex:1">
+        <div class="stat"><div class="v" id="lwDuration">–</div><div class="l">דקות</div></div>
+        <div class="stat"><div class="v" id="lwAvgHr">–</div><div class="l">דופק ממוצע</div></div>
+        <div class="stat"><div class="v" id="lwMaxHr">–</div><div class="l">דופק מקס'</div></div>
+        <div class="stat"><div class="v" id="lwCal">–</div><div class="l">קלוריות (ממוצע)</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="type-tabs" id="typeTabs"></div>
+  <div class="type-summary" id="typeSummary"></div>
+
+  <div class="panel">
+    <h2>טווח תאריכים מותאם אישית</h2>
+    <div class="custom-range">
+      <label>מ-<input type="date" id="rangeFrom"></label>
+      <label>עד-<input type="date" id="rangeTo"></label>
+      <button id="applyCustomRange">החל טווח</button>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="panel">
+      <h2>טווח תאריכים</h2>
+      <div class="range" id="rangeButtons">
+        <button data-days="7" class="active">שבוע</button>
+        <button data-days="30">חודש</button>
+        <button data-days="90">3 חודשים</button>
+        <button data-days="0">הכל</button>
+      </div>
+      <canvas id="hrChart" height="200"></canvas>
+    </div>
+
+    <div class="panel">
+      <h2>פילוח אזורי דופק (סה"כ בטווח, בסוג הנבחר)</h2>
+      <canvas id="zoneChart" height="200"></canvas>
+      <div class="zone-legend">
+        <span><i class="dot" style="background:var(--z1)"></i>Z1</span>
+        <span><i class="dot" style="background:var(--z2)"></i>Z2</span>
+        <span><i class="dot" style="background:var(--z3)"></i>Z3</span>
+        <span><i class="dot" style="background:var(--z4)"></i>Z4</span>
+        <span><i class="dot" style="background:var(--z5)"></i>Z5</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>5 האימונים האחרונים</h2>
+    <table class="recent-table">
+      <thead>
+        <tr><th>תאריך</th><th>שם</th><th>סוג</th><th>משך</th><th>דופק ממוצע</th></tr>
+      </thead>
+      <tbody id="recentTableBody"></tbody>
+    </table>
+    <div id="workoutDetail"></div>
+  </div>
+
+  <div id="empty" style="display:none">
+    לא נמצא workouts.json ליד הדף הזה, או שהוא ריק.
+  </div>
+
+<script>
+const TYPE_LABELS = {HIIT:'HIIT', RUNNING:'ריצה', CYCLING:'רכיבה', OTHER:'אחר'};
+const ZONE_COLORS = ['#3E7CB1','#4FA97A','#D9A441','#E0702F','#D93A3A'];
+let allWorkouts = [];
+let activeType = 'HIIT';
+let rangeStart = null;   // Date or null = no lower bound
+let rangeEnd = null;     // Date or null = up to now
+let openWorkoutId = null;
+let hrChart, zoneChart;
+
+async function load() {
+  try {
+    const res = await fetch('data/workouts.json', {cache:'no-store'});
+    const data = await res.json();
+    allWorkouts = (data.workouts || []).slice().sort((a,b)=> new Date(a.start_time) - new Date(b.start_time));
+  } catch(e) {
+    allWorkouts = [];
+  }
+  if (!allWorkouts.length) {
+    document.getElementById('empty').style.display = 'block';
+    document.getElementById('subtitle').textContent = 'אין נתונים עדיין';
+    return;
+  }
+  const counts = countByType(allWorkouts);
+  document.getElementById('subtitle').textContent =
+    `${allWorkouts.length} אימונים מתועדים · ` +
+    Object.keys(TYPE_LABELS).filter(t=>counts[t]).map(t=>`${counts[t]} ${TYPE_LABELS[t]}`).join(' · ');
+
+  rangeStart = daysAgo(7);
+  renderTypeTabs();
+  renderLastWorkoutStatic();
+  renderRecentTable();
+  render();
+}
+
+function daysAgo(days) {
+  const d = new Date();
+  d.setDate(d.getDate() - days);
+  return d;
+}
+
+function toDateInputValue(d) {
+  // Local YYYY-MM-DD (avoid the UTC-shift bug of toISOString()).
+  const y = d.getFullYear(), m = String(d.getMonth()+1).padStart(2,'0'), day = String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
+
+function parseDateInputLocal(str, endOfDay) {
+  if (!str) return null;
+  const [y, m, d] = str.split('-').map(Number);
+  return endOfDay ? new Date(y, m-1, d, 23, 59, 59) : new Date(y, m-1, d, 0, 0, 0);
+}
+
+function countByType(list) {
+  const counts = {};
+  for (const w of list) counts[w.type] = (counts[w.type]||0) + 1;
+  return counts;
+}
+
+function filterByRange(list) {
+  return list.filter(w => {
+    const d = new Date(w.start_time);
+    if (rangeStart && d < rangeStart) return false;
+    if (rangeEnd && d > rangeEnd) return false;
+    return true;
+  });
+}
+
+function clearPresetHighlight() {
+  document.querySelectorAll('.range button').forEach(b=>b.classList.remove('active'));
+}
+
+function renderTypeTabs() {
+  const present = Object.keys(TYPE_LABELS).filter(t => allWorkouts.some(w=>w.type===t));
+  if (!present.includes(activeType)) activeType = present[0];
+  const tabs = document.getElementById('typeTabs');
+  tabs.innerHTML = present.map(t =>
+    `<button data-type="${t}" class="${t===activeType?'active':''}">${TYPE_LABELS[t]}</button>`
+  ).join('');
+  tabs.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+    activeType = b.dataset.type;
+    tabs.querySelectorAll('button').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    ensureNonEmptyRangeForType(activeType);
+    render();
+  }));
+}
+
+// Rule: never show an empty chart for a type that actually has history --
+// jump the range to the month ending on that type's most recent workout.
+function ensureNonEmptyRangeForType(type) {
+  const inRangeOfType = filterByRange(allWorkouts).filter(w => w.type === type);
+  if (inRangeOfType.length > 0) return;
+  const ofType = allWorkouts.filter(w => w.type === type);
+  if (!ofType.length) return;
+  const last = new Date(ofType[ofType.length - 1].start_time);
+  const start = new Date(last);
+  start.setDate(start.getDate() - 30);
+  rangeStart = start;
+  rangeEnd = last;
+  document.getElementById('rangeFrom').value = toDateInputValue(rangeStart);
+  document.getElementById('rangeTo').value = toDateInputValue(rangeEnd);
+  clearPresetHighlight();
+}
+
+function renderLastWorkoutStatic() {
+  const w = allWorkouts[allWorkouts.length - 1];
+  document.getElementById('lastWorkoutBoard').style.display = 'block';
+  document.getElementById('lwName').textContent = w.name || w.type || 'אימון';
+  document.getElementById('lwDate').textContent = new Date(w.start_time).toLocaleDateString('he-IL', {year:'numeric', month:'long', day:'numeric'});
+  document.getElementById('lwDuration').textContent = w.duration_min ?? '–';
+  document.getElementById('lwAvgHr').textContent = w.avg_hr ?? '–';
+  document.getElementById('lwMaxHr').textContent = w.max_hr ?? '–';
+  const photo = document.getElementById('lwPhoto');
+  if (w.image) {
+    photo.src = w.image;
+    photo.style.display = 'block';
+  } else {
+    photo.style.display = 'none';
+  }
+}
+
+function render() {
+  const inRange = filterByRange(allWorkouts);
+
+  const rangeCounts = countByType(inRange);
+  const present = Object.keys(TYPE_LABELS).filter(t => rangeCounts[t]);
+  document.getElementById('typeSummary').textContent = present.length
+    ? 'בטווח הנבחר: ' + present.map(t => `${rangeCounts[t]} ${TYPE_LABELS[t]}`).join(', ')
+    : 'אין אימונים בטווח הנבחר';
+
+  const subset = inRange.filter(w => w.type === activeType);
+
+  // Average calories tile reflects the currently filtered subset, not just
+  // the single last workout, floored to a whole number per the spec.
+  const calValues = subset.map(w => w.calories).filter(c => c != null);
+  document.getElementById('lwCal').textContent = calValues.length
+    ? Math.floor(calValues.reduce((s,c)=>s+c,0) / calValues.length)
+    : '–';
+
+  const labels = subset.map(w => new Date(w.start_time).toLocaleDateString('he-IL', {month:'short', day:'numeric'}));
+
+  const effectiveStart = rangeStart || new Date(allWorkouts[0].start_time);
+  const effectiveEnd = rangeEnd || new Date();
+  const spanDays = (effectiveEnd - effectiveStart) / 86400000;
+  const showAllLabels = spanDays <= 31;
+
+  const hrData = subset.map(w => w.avg_hr);
+  if (hrChart) hrChart.destroy();
+  hrChart = new Chart(document.getElementById('hrChart'), {
+    type: 'line',
+    data: { labels, datasets: [{
+      label:'דופק ממוצע', data: hrData,
+      borderColor:'#E0702F', backgroundColor:'rgba(224,112,47,.15)',
+      tension:0, fill:true, pointRadius:3
+    }]},
+    options: {
+      plugins:{legend:{display:false}},
+      scales:{
+        x:{
+          ticks:{
+            color:'#9a978f', font:{size:10},
+            autoSkip: !showAllLabels,
+            maxRotation: showAllLabels ? 90 : 50,
+            minRotation: showAllLabels ? 45 : 0
+          },
+          grid:{color:'#2c2c31'}
+        },
+        y:{ticks:{color:'#9a978f',font:{size:10}}, grid:{color:'#2c2c31'}}
+      }
+    }
+  });
+
+  const zoneKeys = ['z1_min','z2_min','z3_min','z4_min','z5_min'];
+  const zoneTotals = zoneKeys.map(k => subset.reduce((s,w)=> s + (w[k]||0), 0));
+  if (zoneChart) zoneChart.destroy();
+  zoneChart = new Chart(document.getElementById('zoneChart'), {
+    type: 'bar',
+    data: { labels:['Z1','Z2','Z3','Z4','Z5'], datasets:[{ data: zoneTotals, backgroundColor: ZONE_COLORS, borderWidth:0 }] },
+    options: {
+      plugins:{legend:{display:false}},
+      scales:{
+        x:{ticks:{color:'#EDEAE4', font:{size:12, weight:'bold'}}, grid:{display:false}},
+        y:{
+          title:{display:true, text:'דקות', color:'#9a978f'},
+          ticks:{color:'#9a978f', font:{size:10}},
+          grid:{color:'#2c2c31'}
+        }
+      }
+    }
+  });
+}
+
+function renderRecentTable() {
+  const recent = allWorkouts.slice(-5).reverse();
+  const tbody = document.getElementById('recentTableBody');
+  tbody.innerHTML = recent.map(w => `
+    <tr data-id="${w.activity_id}">
+      <td>${new Date(w.start_time).toLocaleDateString('he-IL', {month:'short', day:'numeric'})}</td>
+      <td>${w.name || '–'}</td>
+      <td>${TYPE_LABELS[w.type] || w.type}</td>
+      <td>${w.duration_min ?? '–'}</td>
+      <td>${w.avg_hr ?? '–'}</td>
+    </tr>
+  `).join('');
+  tbody.querySelectorAll('tr').forEach(tr => tr.addEventListener('click', () => {
+    const id = tr.dataset.id;
+    if (openWorkoutId === id) {
+      openWorkoutId = null;
+      document.getElementById('workoutDetail').innerHTML = '';
+      tbody.querySelectorAll('tr').forEach(x=>x.classList.remove('open'));
+      return;
+    }
+    openWorkoutId = id;
+    tbody.querySelectorAll('tr').forEach(x=>x.classList.remove('open'));
+    tr.classList.add('open');
+    const w = allWorkouts.find(x => x.activity_id === id);
+    document.getElementById('workoutDetail').innerHTML = renderWorkoutDetail(w);
+  }));
+}
+
+function renderWorkoutDetail(w) {
+  const dateStr = new Date(w.start_time).toLocaleDateString('he-IL', {year:'numeric', month:'long', day:'numeric'});
+  const photoHtml = w.image ? `<img class="board-photo" src="${w.image}" style="width:220px" onclick="window.open(this.src)">` : '';
+
+  const hasZones = [1,2,3,4,5].some(z => w[`z${z}_min`] !== undefined);
+  const total = w.duration_min || 0;
+  const zoneRows = hasZones ? [1,2,3,4,5].map(z => {
+    const min = w[`z${z}_min`] || 0;
+    const pct = total ? Math.round((min/total)*100) : 0;
+    return `<div class="row">
+      <i class="dot" style="background:${ZONE_COLORS[z-1]}"></i>
+      <span style="min-width:56px">אזור ${z}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${pct}%; background:${ZONE_COLORS[z-1]}"></div></div>
+      <span style="min-width:110px; text-align:left">${pct}% · ${min.toFixed ? min.toFixed(1) : min} דק'</span>
+    </div>`;
+  }).join('') : '<div class="empty">אין נתוני אזורי דופק לאימון זה</div>';
+
+  const recs = Array.isArray(w.recommendations) && w.recommendations.length
+    ? `<ul>${w.recommendations.slice(0,3).map(r => `<li>${r}</li>`).join('')}</ul>`
+    : `<div class="empty">טרם נותח</div>`;
+
+  return `
+    <div class="board">
+      <div class="name">${w.name || w.type}</div>
+      <div class="date">${dateStr}</div>
+      <div class="board-body">
+        ${photoHtml}
+        <div style="flex:1">
+          <div class="stats">
+            <div class="stat"><div class="v">${w.duration_min ?? '–'}</div><div class="l">דקות</div></div>
+            <div class="stat"><div class="v">${w.avg_hr ?? '–'}</div><div class="l">דופק ממוצע</div></div>
+            <div class="stat"><div class="v">${w.max_hr ?? '–'}</div><div class="l">דופק מקס'</div></div>
+          </div>
+          <div class="zone-breakdown" style="margin-top:14px">${zoneRows}</div>
+        </div>
+      </div>
+      <div class="recommendations">
+        <h3>ניתוח והמלצות</h3>
+        ${recs}
+      </div>
+    </div>
+  `;
+}
+
+document.getElementById('rangeButtons').addEventListener('click', (e)=>{
+  if (e.target.tagName !== 'BUTTON') return;
+  clearPresetHighlight();
+  e.target.classList.add('active');
+  const days = parseInt(e.target.dataset.days);
+  rangeStart = days ? daysAgo(days) : null;
+  rangeEnd = null;
+  document.getElementById('rangeFrom').value = '';
+  document.getElementById('rangeTo').value = '';
+  render();
+});
+
+document.getElementById('applyCustomRange').addEventListener('click', () => {
+  const from = document.getElementById('rangeFrom').value;
+  const to = document.getElementById('rangeTo').value;
+  rangeStart = parseDateInputLocal(from, false);
+  rangeEnd = parseDateInputLocal(to, true);
+  clearPresetHighlight();
+  render();
+});
+
+load();
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:\\Users\\gurfi\\hiit-pipeline\\scripts\\cost_guardrail_hook.js\"",
+            "timeout": 20
+          }
+        ]
+      }
+    ]
+  }
+}
