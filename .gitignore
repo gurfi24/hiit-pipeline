@@ -2,4 +2,6 @@
 *.env
 __pycache__/
 data/telegram_state.json
+data/last_run.json
+automation_paused.flag
 cost_guardrail.log

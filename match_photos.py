@@ -33,6 +33,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--data-dir", default="./data")
     parser.add_argument("--boards-dir", default="./boards")
+    parser.add_argument("--json", action="store_true", help="Print result as JSON instead of text (for /status)")
     args = parser.parse_args()
 
     data_dir = Path(args.data_dir)
@@ -75,6 +76,10 @@ def main():
         matched += 1
 
     path.write_text(json.dumps(store, indent=2, default=str))
+
+    if args.json:
+        print(json.dumps({"matched": matched, "pending": pending, "flagged": flagged}))
+        return
 
     print(f"Matched {matched} photo(s) to workouts.")
     if pending:
