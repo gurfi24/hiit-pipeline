@@ -67,24 +67,21 @@ def run(cmd, cwd=ROOT):
     return subprocess.run(cmd, cwd=cwd, capture_output=True, text=True)
 
 
-def git_path_env():
-    """This environment doesn't put Git on PATH for spawned processes by
-    default (winget installs it after the shell's PATH was cached)."""
-    import winreg
+def find_git_exe():
+    """Resolve git.exe by full path rather than relying on PATH -- Windows'
+    subprocess executable search uses the CALLING process's own inherited
+    PATH, not an `env=` dict passed to subprocess.run, so a stale-PATH shell
+    (e.g. one started before Git was installed) can't find a bare "git" no
+    matter what env is passed. A full path sidesteps that entirely."""
+    import shutil
 
-    def read(hive, sub):
-        try:
-            with winreg.OpenKey(hive, sub) as key:
-                val, _ = winreg.QueryValueEx(key, "Path")
-                return val
-        except OSError:
-            return ""
-
-    machine = read(winreg.HKEY_LOCAL_MACHINE, r"SYSTEM\CurrentControlSet\Control\Session Manager\Environment")
-    user = read(winreg.HKEY_CURRENT_USER, "Environment")
-    env = os.environ.copy()
-    env["Path"] = machine + ";" + user + ";" + env.get("Path", "")
-    return env
+    found = shutil.which("git")
+    if found:
+        return found
+    for candidate in (r"C:\Program Files\Git\cmd\git.exe", r"C:\Program Files\Git\bin\git.exe"):
+        if Path(candidate).exists():
+            return candidate
+    sys.exit("git.exe not found (checked PATH and the default Git for Windows install location)")
 
 
 def main():
@@ -106,7 +103,7 @@ def main():
         return
 
     os.environ["HIIT_AUTOMATED_RUN"] = "1"
-    gh_env = git_path_env()
+    git_exe = find_git_exe()
 
     # 1. Deterministic Polar sync (no AI, no cost).
     r = run([sys.executable, "polar_sync.py", "--data-dir", "./data"])
@@ -141,11 +138,10 @@ def main():
             "entry in workouts.json. Do not touch any other entries. Do not run git "
             "commands -- that happens separately."
         )
-        claude_env = gh_env.copy()
         claude_exe = str(Path.home() / ".local" / "bin" / "claude.exe")
         cr = subprocess.run(
             [claude_exe, "-p", prompt, "--output-format", "json", "--permission-mode", "bypassPermissions"],
-            cwd=ROOT, capture_output=True, text=True, env=claude_env, timeout=600,
+            cwd=ROOT, capture_output=True, text=True, timeout=600,
         )
         try:
             result = json.loads(cr.stdout)
@@ -156,14 +152,14 @@ def main():
     # 4. Regenerate the compact local log (no AI, no cost).
     run([sys.executable, "update_log.py", "--data-dir", "./data"])
 
-    # 5. Commit + push (git needs the refreshed PATH from the registry).
-    run(["git", "add", "-A"], cwd=ROOT)
-    diff_check = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=ROOT, env=gh_env)
+    # 5. Commit + push (git.exe resolved by full path -- see find_git_exe()).
+    subprocess.run([git_exe, "add", "-A"], cwd=ROOT)
+    diff_check = subprocess.run([git_exe, "diff", "--cached", "--quiet"], cwd=ROOT)
     pushed = False
     if diff_check.returncode != 0:  # non-zero = there ARE staged changes
         commit_msg = f"Automated sync: {len(new_activity_ids)} new workout(s)\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"
-        subprocess.run(["git", "commit", "-m", commit_msg], cwd=ROOT, env=gh_env)
-        push_r = subprocess.run(["git", "push"], cwd=ROOT, env=gh_env, capture_output=True, text=True)
+        subprocess.run([git_exe, "commit", "-m", commit_msg], cwd=ROOT)
+        push_r = subprocess.run([git_exe, "push"], cwd=ROOT, capture_output=True, text=True)
         pushed = push_r.returncode == 0
         if not pushed:
             print(push_r.stderr)
