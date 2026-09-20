@@ -3,5 +3,8 @@
 __pycache__/
 data/telegram_state.json
 data/last_run.json
+data/pending.json
+data/pending_archive.json
+data/garmin_state.json
 automation_paused.flag
 cost_guardrail.log

@@ -1,5 +1,5 @@
 {
-  "last_synced": null,
+  "last_synced": "2026-09-19T10:00:10",
   "workouts": [
     {
       "activity_id": "garmin_450029490",
@@ -6577,6 +6577,63 @@
       "z3_min": 20.4,
       "z4_min": 9.1,
       "z5_min": 6.7
+    },
+    {
+      "activity_id": "garmin_24342365135",
+      "source": "garmin",
+      "name": "CrossFit no-gps",
+      "type": "HIIT",
+      "start_time": "2026-09-13T10:20:33",
+      "duration_min": 40.5,
+      "avg_hr": 124.0,
+      "max_hr": 164.0,
+      "calories": 332.0,
+      "training_effect": 2.700000047683716,
+      "anaerobic_training_effect": 0.30000001192092896,
+      "z0_min": 3.2,
+      "z1_min": 6.8,
+      "z2_min": 18.2,
+      "z3_min": 8.3,
+      "z4_min": 4.0,
+      "z5_min": 0.0
+    },
+    {
+      "activity_id": "garmin_24366530976",
+      "source": "garmin",
+      "name": "CrossFit no-gps",
+      "type": "HIIT",
+      "start_time": "2026-09-15T09:02:32",
+      "duration_min": 65.1,
+      "avg_hr": 124.0,
+      "max_hr": 169.0,
+      "calories": 527.0,
+      "training_effect": 3.0,
+      "anaerobic_training_effect": 1.899999976158142,
+      "z0_min": 2.6,
+      "z1_min": 21.1,
+      "z2_min": 21.5,
+      "z3_min": 10.4,
+      "z4_min": 9.4,
+      "z5_min": 0.0
+    },
+    {
+      "activity_id": "garmin_24415818642",
+      "source": "garmin",
+      "name": "CrossFit no-gps",
+      "type": "HIIT",
+      "start_time": "2026-09-19T10:00:10",
+      "duration_min": 56.8,
+      "avg_hr": 128.0,
+      "max_hr": 165.0,
+      "calories": 484.0,
+      "training_effect": 3.0,
+      "anaerobic_training_effect": 1.2999999523162842,
+      "z0_min": 5.6,
+      "z1_min": 8.0,
+      "z2_min": 20.9,
+      "z3_min": 11.1,
+      "z4_min": 11.2,
+      "z5_min": 0.0
     }
   ]
 }

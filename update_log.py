@@ -33,7 +33,7 @@ def main():
     parser.add_argument("--out", default="./hiit-workout-log.md")
     args = parser.parse_args()
 
-    store = json.loads((Path(args.data_dir) / "workouts.json").read_text())
+    store = json.loads((Path(args.data_dir) / "workouts.json").read_text(encoding="utf-8"))
     workouts = sorted(store["workouts"], key=lambda w: w["start_time"])
 
     lines = [
