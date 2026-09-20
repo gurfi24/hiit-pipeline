@@ -198,6 +198,16 @@ class LookbackAndWindowTests(unittest.TestCase):
         self.assertIn("Archived stale pending entries", out.buffer.getvalue().decode("utf-8"))
 
 
+class SendTelegramTests(unittest.TestCase):
+    def test_a_failed_send_never_prints_the_token_url(self):
+        boom = aw.requests.ConnectionError("Max retries exceeded with url: /botSECRET-TOKEN/sendMessage")
+        out = io.StringIO()
+        with mock.patch.object(aw.requests, "post", side_effect=boom), mock.patch.object(sys, "stdout", out):
+            aw.send_telegram("SECRET-TOKEN", 1, "hi")
+        self.assertIn("ConnectionError", out.getvalue())
+        self.assertNotIn("SECRET-TOKEN", out.getvalue())
+
+
 class RunLockTests(unittest.TestCase):
     def setUp(self):
         self.p = {"E": entry(workout_date=D1, source="text", texts=["b"])}

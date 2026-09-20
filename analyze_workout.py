@@ -91,7 +91,7 @@ def send_telegram(token, chat_id, text):
             timeout=15,
         )
     except requests.RequestException as e:
-        print(f"  (failed to send Telegram message: {e})")
+        print(f"  (failed to send Telegram message: {type(e).__name__})")  # str(e) embeds the bot-token URL
 
 
 def write_last_run(status, message, cost_usd=None, new_workouts=0):
