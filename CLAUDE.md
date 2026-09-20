@@ -13,23 +13,45 @@ personal files to git without asking.
 ## Flow
 
 1. Garmin watch syncs a workout to Garmin Connect.
-2. User sends the bot a board photo, then (optionally) a free-text recap.
+2. User sends the bot a board photo, then (optionally) a free-text recap --
+   possibly days after the workout.
 3. User sends `/start` (or plain "start", case-insensitive) -> `analyze_workout.py`
-   runs: matches the most recent pending date against the last 7 days of
-   Garmin activity, makes ONE budget-capped LLM call to extract details +
-   write insights + merge into `workouts.json`, commits, replies with one
-   Telegram summary.
-4. `/stop`/"STOP" pauses everything (no Garmin/LLM calls, no notifications)
-   until the next `/start` -- persisted via `automation_paused.flag`.
+   runs up to 3 pending *workout dates* per `/start`, newest first; each is
+   its own run: match it against Garmin activity (an already-stored `garmin_`
+   entry is merged into, never skipped or duplicated), ONE LLM call capped at
+   $0.50 to extract details + write insights + merge into `workouts.json`,
+   commit + push, one Telegram summary. Dates beyond the 3rd are listed in
+   the last reply and stay queued.
+4. `/stop`/"STOP" pauses: no Garmin/LLM/vision calls and no notifications
+   until the next `/start` (persisted via `automation_paused.flag`). Photos
+   and texts sent while paused are still SAVED, silently, so nothing sent
+   before `/start` is lost; only `/start` resumes and processes them.
+
+**Workout date = from the content, never the send time.** Priority: (1) an
+explicit date in the text (`workout_date.py`, plain regex, no LLM), (2) a date
+visible on the photo (one separate vision call, max $0.05, read once per
+photo), (3) neither -> never guess and never fall back to the send date: ask
+ONE Telegram question and keep it queued; the user's short date reply
+(`19/9`, `yesterday`, `אתמול`) dates it, then `/start` again.
+
+**Windows:** an explicit workout date is valid up to 30 days back. `/start`
+looks back 7 days on Garmin, or further (max 30) when an older date needs it.
+Dated entries are archived (and announced on Telegram) only once the workout
+is older than 30 days; undated ones 30 days after the message date. The plain
+automatic sync (`garmin_sync.py` CLI) keeps its 7-day limit.
 
 ## Key files
 
 - `telegram_bot.py` -- scheduled poller (Task Scheduler, hourly :30). No AI,
   no Garmin calls except spawning `analyze_workout.py` on `/start`.
 - `analyze_workout.py` -- the `/start` handler. Only place the LLM is called.
-- `pending_store.py` -- `data/pending.json`: photo/text queued per local
-  date until `/start`. `prune_stale()` drops (archives) anything older than
-  the 7-day Garmin lookback before any Garmin/LLM call.
+- `workout_date.py` -- pure regex date extractor (DD/MM[/YY], DD.MM.YY,
+  "19 Sept", Hebrew month names, yesterday/אתמול, day before yesterday/שלשום).
+  Bare `DD.MM` is not accepted (collides with weights like `18.5 kg`).
+- `pending_store.py` -- `data/pending.json`: one entry per submission
+  (photo + texts sent within 2h of each other), with `workout_date` and
+  `date_source`. `prune_stale()` archives dated entries whose workout is older
+  than 30 days (undated: 30 days after the message) before any Garmin/LLM call.
 - `garmin_sync.py` -- Garmin API wrapper (unofficial `garminconnect` lib).
   `get_client()` handles login/MFA/token caching. `fetch_recent()` is the
   bounded on-demand pull `analyze_workout.py` uses. A **direct CLI run**
@@ -86,8 +108,18 @@ logged, never the birth date itself).
 
 ## Budget
 
-Each `/start` analysis run is hard-capped at $0.50 via `--max-budget-usd` on
-the `claude -p` call in `analyze_workout.py` (enforced by the CLI, not just
-monitored). A failed/over-budget run leaves `workouts.json` untouched (the
+Each analysis run (one workout date; up to 3 per `/start`) is hard-capped at
+$0.50 via `--max-budget-usd` on the `claude -p` call in `analyze_workout.py`
+(enforced by the CLI, not just monitored). The optional photo-date read (max
+$0.05, Haiku, Read tool only) is deducted from its own run's budget. A
+failed/over-budget run leaves `workouts.json` untouched (the
 LLM adds the whole merged entry atomically) and the pending photo/text stays
 queued for a retry.
+
+## Tests
+
+`python -m unittest discover -s tests` -- no network, no LLM, no Garmin. Every
+test module imports `tests/_guard.py`, which forces all data paths into a temp
+dir and raises `RealDataAccessError` (a `BaseException`) if anything touches
+the real `data/`, `boards/` or `automation_paused.flag`. Never write tests
+that read or write those directly.

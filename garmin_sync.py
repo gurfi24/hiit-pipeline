@@ -43,6 +43,7 @@ env_setup.load()  # populate os.environ from .env before anything reads GARMIN_E
 MAX_HR_ZONE_PCTS = [0.5, 0.6, 0.7, 0.8, 0.9, 1.01]
 DEFAULT_MAX_HR = 190
 MAX_SINCE_DAYS = 30  # hard cap on --since
+DATA_DIR = Path(__file__).parent / "data"
 LOCAL_TZ = ZoneInfo("Asia/Jerusalem")
 
 # Garmin's own sportType/activityType strings -> our canonical `type` field.
@@ -182,7 +183,7 @@ def resolve_hr_zones(client=None, workouts=None, env=None):
 
     if workouts is None:
         try:
-            workouts = load_existing(Path(__file__).parent / "data")["workouts"]
+            workouts = load_existing(DATA_DIR)["workouts"]
         except Exception:
             workouts = []
     observed = max((w.get("max_hr") or 0 for w in workouts), default=0)
@@ -473,18 +474,21 @@ def iter_recent_summaries(client, cutoff):
             return
 
 
-def fetch_recent(client, hr_zones, days=7, cutoff=None, known_ids=None):
+def fetch_recent(client, hr_zones, days=7, cutoff=None, known_ids=None, only_dates=None):
     """Pull activities from the last `days` days (or since `cutoff`) via the
     live API. Used by analyze_workout.py on /start -- deliberately NOT a
     full/incremental sync, just a short lookback so a fresh watch sync is
     picked up quickly. `known_ids` (garmin_<id> strings) are skipped before
-    the FIT download, so already-stored activities cost no extra API calls."""
+    the FIT download, so already-stored activities cost no extra API calls.
+    `only_dates` (local YYYY-MM-DD strings) restricts the FIT downloads to those days."""
     from datetime import timedelta
 
     cutoff = cutoff or datetime.now(LOCAL_TZ) - timedelta(days=days)
     results = []
     for act in iter_recent_summaries(client, cutoff):
         if known_ids and f"garmin_{act['activityId']}" in known_ids:
+            continue
+        if only_dates is not None and act["startTimeLocal"][:10] not in only_dates:
             continue
         results.append(_build_workout_entry(act, client, hr_zones))
     return results

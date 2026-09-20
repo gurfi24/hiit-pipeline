@@ -254,7 +254,7 @@ def login_only_safe(telegram_token, chat_id, env):
     return client, None
 
 
-def fetch_recent_safe(days, telegram_token, chat_id, env):
+def fetch_recent_safe(days, telegram_token, chat_id, env, known_ids=None, only_dates=None):
     """get_client() + fetch_recent() with one retry (skipped for MFA/rate-limit,
     which a retry can't fix). Refuses immediately during an active rate-limit
     cooldown. Returns (activities, None) on success, or (None, (kind, reason))
@@ -275,7 +275,7 @@ def fetch_recent_safe(days, telegram_token, chat_id, env):
         try:
             client = get_client()
             hr_zones = resolve_hr_zones(client, env=os.environ)
-            activities = fetch_recent(client, hr_zones, days=days)
+            activities = fetch_recent(client, hr_zones, days=days, known_ids=known_ids, only_dates=only_dates)
             if not isinstance(activities, list):
                 raise ValueError("fetch_recent returned a non-list response")
             _record_success(telegram_token, chat_id)

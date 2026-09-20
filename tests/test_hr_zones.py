@@ -10,6 +10,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+import _guard  # noqa: F401 -- installs the real-data guard
+
 import garmin_sync as gs
 
 GARMIN_ZONES = [{

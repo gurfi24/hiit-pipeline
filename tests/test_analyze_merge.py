@@ -4,10 +4,7 @@ No network, no LLM: the LLM step is replaced by a fake that edits a temp
 workouts.json the way the prompt tells the real one to."""
 
 import copy
-import json
-import subprocess
 import sys
-import tempfile
 import unittest
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -15,8 +12,10 @@ from unittest import mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+import _guard  # noqa: F401 -- installs the real-data guard
+
 import analyze_workout as aw
-import pending_store
+import support
 
 DAY = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
 
@@ -117,68 +116,33 @@ class MainMergeFlowTests(unittest.TestCase):
     """Drive main() end to end with a fake LLM against temp files."""
 
     def run_main(self, llm_edit):
-        tmp = Path(tempfile.mkdtemp())
-        wpath = tmp / "workouts.json"
-        wpath.write_text(json.dumps({"workouts": [workout(9, "2026-09-01"), workout(1)]}), encoding="utf-8")
-        pending_path = tmp / "pending.json"
-        pending_path.write_text(
-            json.dumps({DAY: {"photo": "boards/x.jpg", "texts": ["squat 80kg"], "received_at": "x"}}), encoding="utf-8"
-        )
-        seen = {}
-
-        def fake_llm(date_str, entry, match, age, is_existing):
-            seen["is_existing"], seen["match_id"] = is_existing, match["activity_id"]
-            data = json.loads(wpath.read_text(encoding="utf-8"))
-            llm_edit(data["workouts"])
-            wpath.write_text(json.dumps(data), encoding="utf-8")
-            return subprocess.CompletedProcess(
-                [], 0, stdout=json.dumps({"result": "insights", "total_cost_usd": 0.1}), stderr=""
-            )
-
-        patches = [
-            mock.patch.object(aw, "WORKOUTS_PATH", wpath),
-            mock.patch.object(aw, "LAST_RUN_PATH", tmp / "last_run.json"),
-            mock.patch.object(aw, "PAUSE_FLAG", tmp / "no.flag"),
-            mock.patch.object(aw, "ROOT", tmp),
-            mock.patch.object(aw, "load_env", return_value={}),
-            mock.patch.object(aw, "find_git_exe", return_value="git"),
-            mock.patch.object(aw, "send_telegram"),
-            mock.patch.object(aw, "run_llm_merge", side_effect=fake_llm),
-            mock.patch.object(aw.garmin_health, "fetch_recent_safe", return_value=([], None)),  # nothing new on Garmin
-            mock.patch.object(aw.subprocess, "run", return_value=mock.Mock(returncode=0)),  # update_log + git
-            mock.patch.object(pending_store, "PENDING_PATH", pending_path),
-            mock.patch.object(pending_store, "ARCHIVE_PATH", tmp / "archive.json"),
-        ]
-        for p in patches:
-            p.start()
-        self.addCleanup(lambda: [p.stop() for p in patches])
-        aw.main()
-        read = lambda path: json.loads(path.read_text(encoding="utf-8"))
-        return seen, read(wpath)["workouts"], read(pending_path), read(tmp / "last_run.json")
+        pending = {"E1": support.entry(workout_date=DAY, source="text", photo="boards/x.jpg", texts=["squat 80kg"])}
+        return support.run_analyze(self, pending, [workout(9, "2026-09-01"), workout(1)], llm_edit=llm_edit)
 
     def test_existing_entry_gets_photo_text_insights_merged(self):
         def good(ws):
             e = next(w for w in ws if w["activity_id"] == "garmin_1")
             e.update(image="boards/x.jpg", notes="squat 80kg", insights=["a", "b", "c"])
 
-        seen, ws, pending, last = self.run_main(good)
-        self.assertTrue(seen["is_existing"])  # not skipped as "no match"
-        self.assertEqual(seen["match_id"], "garmin_1")
-        self.assertEqual(len(ws), 2)  # no duplicate
-        e = next(w for w in ws if w["activity_id"] == "garmin_1")
+        r = self.run_main(good)
+        (call,) = r.calls.llm
+        self.assertTrue(call.is_existing)  # not skipped as "no match"
+        self.assertEqual(call.match_id, "garmin_1")
+        self.assertEqual(len(r.workouts), 2)  # no duplicate
+        e = next(w for w in r.workouts if w["activity_id"] == "garmin_1")
         self.assertEqual((e["image"], e["notes"], e["insights"]), ("boards/x.jpg", "squat 80kg", ["a", "b", "c"]))
         self.assertEqual(e["avg_hr"], 128.0)  # Garmin data intact
-        self.assertEqual(pending, {})  # cleared only after success
-        self.assertEqual((last["status"], last["new_workouts"]), ("ok", 0))
+        self.assertEqual(r.pending, {})  # cleared only after success
+        self.assertEqual((r.last_run["status"], r.last_run["new_workouts"]), ("ok", 0))
 
     def test_llm_that_duplicates_is_rolled_back_and_pending_kept(self):
         def bad(ws):
             ws.append(copy.deepcopy(next(w for w in ws if w["activity_id"] == "garmin_1")))
 
-        seen, ws, pending, last = self.run_main(bad)
-        self.assertEqual(len(ws), 2)  # rolled back
-        self.assertIn(DAY, pending)  # retryable
-        self.assertEqual(last["status"], "invalid_merge")
+        r = self.run_main(bad)
+        self.assertEqual(len(r.workouts), 2)  # rolled back
+        self.assertIn("E1", r.pending)  # retryable
+        self.assertEqual(r.last_run["status"], "invalid_merge")
 
 
 if __name__ == "__main__":
