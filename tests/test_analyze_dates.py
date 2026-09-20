@@ -198,6 +198,34 @@ class LookbackAndWindowTests(unittest.TestCase):
         self.assertIn("Archived stale pending entries", out.buffer.getvalue().decode("utf-8"))
 
 
+class RunLockTests(unittest.TestCase):
+    def setUp(self):
+        self.p = {"E": entry(workout_date=D1, source="text", texts=["b"])}
+
+    def test_a_second_run_while_one_is_active_does_nothing_and_keeps_the_lock(self):
+        r = run_analyze(self, self.p, [], activities=[workout(7, D1)], lock_age_s=60)
+        self.assertEqual((r.calls.llm, r.calls.garmin, r.calls.telegram), ([], 0, []))  # no cost, no noise
+        self.assertIn("E", r.pending)  # stays queued
+        self.assertTrue(r.lock_exists)  # the loser must not release the winner's lock
+
+    def test_a_stale_lock_from_a_crashed_run_is_replaced(self):
+        r = run_analyze(self, self.p, [], activities=[workout(7, D1)], lock_age_s=aw.LOCK_STALE_S + 60)
+        self.assertEqual(len(r.calls.llm), 1)
+        self.assertFalse(r.lock_exists)  # released at the end
+
+    def test_the_lock_is_released_after_a_normal_run(self):
+        r = run_analyze(self, self.p, [], activities=[workout(7, D1)])
+        self.assertEqual(len(r.calls.llm), 1)
+        self.assertFalse(r.lock_exists)
+
+    def test_the_lock_is_released_even_if_the_run_crashes(self):
+        lock = support.Path(support.tempfile.mkdtemp()) / "analyze.lock"
+        with mock.patch.object(aw, "LOCK_PATH", lock), mock.patch.object(aw, "_main", side_effect=RuntimeError("boom")):
+            with self.assertRaises(RuntimeError):
+                aw.main()
+        self.assertFalse(lock.exists())
+
+
 class MoreMultiEntryTests(unittest.TestCase):
 
     def test_dated_entry_is_processed_and_the_undated_one_is_asked_about(self):

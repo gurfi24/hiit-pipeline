@@ -46,6 +46,7 @@ class BotIntakeTests(unittest.TestCase):
             flag.write_text("x")
         for p in (
             mock.patch.object(tb, "STATE_PATH", tmp / "state.json"),
+            mock.patch.object(tb, "HEARTBEAT_PATH", tmp / "heartbeat.json"),
             mock.patch.object(tb, "BOARDS_DIR", tmp / "boards"),
             mock.patch.object(tb, "PAUSE_FLAG", flag),
             mock.patch.object(tb, "ROOT", tmp),
@@ -80,6 +81,31 @@ class BotIntakeTests(unittest.TestCase):
         _, popen, _ = self.run_bot([update(1, text="/start")])
         popen.assert_called_once()
         self.assertEqual(popen.call_args.kwargs["env"]["PYTHONIOENCODING"], "utf-8")
+
+    def test_two_starts_in_one_batch_spawn_only_one_analysis(self):
+        replies, popen, _ = self.run_bot([update(1, text="/start"), update(2, text="start")])
+        popen.assert_called_once()
+
+    def test_a_start_after_a_stop_in_the_same_batch_spawns_again(self):
+        _, popen, _ = self.run_bot([update(1, text="/start"), update(2, text="/stop"), update(3, text="/start")])
+        self.assertEqual(popen.call_count, 2)
+
+    def test_every_poll_writes_a_heartbeat_and_status_reports_it(self):
+        replies, _, tmp = self.run_bot([update(1, text="/status")])
+        self.assertIn("last_poll", json.loads((tmp / "heartbeat.json").read_text(encoding="utf-8")))
+        self.assertIn("פולר חי", replies[0])
+
+    def test_status_warns_when_the_heartbeat_is_stale(self):
+        def stale():
+            old = (datetime.now() - timedelta(minutes=tb.HEARTBEAT_STALE_MIN + 30)).isoformat()
+            tb.HEARTBEAT_PATH.write_text(json.dumps({"last_poll": old}), encoding="utf-8")
+
+        # the poll itself refreshes the heartbeat first, so check the formatter on an old file directly
+        replies = []
+        with mock.patch.object(tb, "HEARTBEAT_PATH", Path(tempfile.mkdtemp()) / "hb.json"),                 mock.patch.object(tb, "reply", side_effect=lambda b, c, t: replies.append(t)):
+            stale()
+            tb.handle_status("base", 1)
+        self.assertIn("⚠️", replies[0])
 
     def test_text_without_a_date_stays_undated(self):
         replies, _, _ = self.run_bot([update(1, text="First amrap with a 18 kg dumbbell, I did 2.5 rounds")])

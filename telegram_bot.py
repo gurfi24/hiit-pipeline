@@ -47,6 +47,8 @@ STATE_PATH = ROOT / "data" / "telegram_state.json"
 BOARDS_DIR = ROOT / "boards"
 PAUSE_FLAG = ROOT / "automation_paused.flag"
 LAST_RUN_PATH = ROOT / "data" / "last_run.json"
+HEARTBEAT_PATH = ROOT / "data" / "poller_heartbeat.json"  # gitignored; proves the scheduled task is alive
+HEARTBEAT_STALE_MIN = 90  # hourly task: older than this means it stopped running
 LOCAL_TZ = ZoneInfo("Asia/Jerusalem")
 
 START_TEXTS = {"start", "/start"}
@@ -72,6 +74,11 @@ def load_state():
 def save_state(state):
     STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
     STATE_PATH.write_text(json.dumps(state, indent=2))
+
+
+def write_heartbeat():
+    HEARTBEAT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    HEARTBEAT_PATH.write_text(json.dumps({"last_poll": datetime.now().isoformat(timespec="seconds")}), encoding="utf-8")
 
 
 def reply(base, chat_id, text):
@@ -113,6 +120,14 @@ def handle_stop(base, chat_id):
 
 def handle_status(base, chat_id):
     lines = []
+
+    try:
+        last_poll = datetime.fromisoformat(json.loads(HEARTBEAT_PATH.read_text(encoding="utf-8"))["last_poll"])
+        age_min = int((datetime.now() - last_poll).total_seconds() // 60)
+        stale = " ⚠️ הפולר לא רץ זמן רב" if age_min > HEARTBEAT_STALE_MIN else ""
+        lines.append(f"🟢 פולר חי: סקר אחרון {last_poll:%d/%m %H:%M} (לפני {age_min} דק'){stale}")
+    except (OSError, ValueError, KeyError):
+        lines.append("⚠️ פולר: אין סימן חיים עדיין")
 
     if PAUSE_FLAG.exists():
         lines.append("⏸️ מצב: נעצר (שלח /start כדי להמשיך)")
@@ -175,9 +190,11 @@ def main():
     if not data.get("ok"):
         sys.exit(f"Telegram API error: {data}")
 
+    write_heartbeat()
     updates = data["result"]
     max_update_id = state["last_update_id"]
     photos_saved = 0
+    start_spawned = False  # one analysis per batch, however many /start it holds
 
     for upd in updates:
         max_update_id = max(max_update_id, upd["update_id"])
@@ -194,10 +211,13 @@ def main():
         # START/STOP work even while paused. Anything else is still saved
         # while paused (silently), so messages sent before /start are not lost.
         if normalized in START_TEXTS:
-            handle_start(base, chat_id)
+            if not start_spawned:
+                handle_start(base, chat_id)
+                start_spawned = True
             continue
         if normalized in STOP_TEXTS:
             handle_stop(base, chat_id)
+            start_spawned = False  # a later /start must run again
             continue
 
         photos = msg.get("photo")

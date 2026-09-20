@@ -82,6 +82,8 @@ def _repoint():
     analyze_workout.LAST_RUN_PATH = telegram_bot.LAST_RUN_PATH = TMP_DATA / "last_run.json"
     analyze_workout.PAUSE_FLAG = telegram_bot.PAUSE_FLAG = TMP / "automation_paused.flag"
     telegram_bot.STATE_PATH = TMP_DATA / "telegram_state.json"
+    telegram_bot.HEARTBEAT_PATH = TMP_DATA / "poller_heartbeat.json"
+    analyze_workout.LOCK_PATH = TMP_DATA / "analyze.lock"
     garmin_health.STATE_PATH = TMP_DATA / "garmin_state.json"
     garmin_sync.DATA_DIR = TMP_DATA
 

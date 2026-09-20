@@ -40,7 +40,7 @@ class GuardTests(unittest.TestCase):
             pending_store.PENDING_PATH, pending_store.ARCHIVE_PATH, pending_store.BOARDS_DIR,
             aw.WORKOUTS_PATH, aw.LAST_RUN_PATH, aw.PAUSE_FLAG,
             telegram_bot.STATE_PATH, telegram_bot.LAST_RUN_PATH, telegram_bot.BOARDS_DIR, telegram_bot.PAUSE_FLAG,
-            garmin_health.STATE_PATH, garmin_sync.DATA_DIR,
+            garmin_health.STATE_PATH, garmin_sync.DATA_DIR, aw.LOCK_PATH, telegram_bot.HEARTBEAT_PATH,
         ]
         for p in paths:
             self.assertTrue(str(Path(p).resolve()).startswith(str(_guard.TMP.resolve())), p)

@@ -8,3 +8,6 @@ data/pending_archive.json
 data/garmin_state.json
 automation_paused.flag
 cost_guardrail.log
+data/poller_heartbeat.json
+data/analyze.lock
+logs/

@@ -2,9 +2,11 @@
 fake Garmin, fake LLM, fake vision date-read and a recording Telegram."""
 
 import json
+import os
 import subprocess
 import sys
 import tempfile
+import time
 from datetime import datetime, timedelta
 from pathlib import Path
 from types import SimpleNamespace
@@ -56,7 +58,7 @@ def patch_pending(test, tmp):
     return path
 
 
-def run_analyze(test, pending, workouts, llm_edit=None, vision=None, activities=()):
+def run_analyze(test, pending, workouts, llm_edit=None, vision=None, activities=(), lock_age_s=None):
     """pending: {id: entry}; vision(photo_rel) -> (date|None, cost, ok);
     llm_edit(workouts_list) edits the temp workouts.json like the real LLM would."""
     tmp = Path(tempfile.mkdtemp())
@@ -65,6 +67,10 @@ def run_analyze(test, pending, workouts, llm_edit=None, vision=None, activities=
     pending_path = patch_pending(test, tmp)
     pending_path.write_text(json.dumps(pending), encoding="utf-8")
     calls = SimpleNamespace(llm=[], vision=[], telegram=[], garmin=0, garmin_args=[])
+    lock = tmp / "analyze.lock"
+    if lock_age_s is not None:  # simulate a run that is (or was) active
+        lock.write_text("999", encoding="utf-8")
+        os.utime(lock, (time.time() - lock_age_s,) * 2)
 
     def fake_llm(date_str, entry_, match, age, is_existing, budget_usd=None):
         calls.llm.append(SimpleNamespace(
@@ -93,6 +99,7 @@ def run_analyze(test, pending, workouts, llm_edit=None, vision=None, activities=
         mock.patch.object(aw, "WORKOUTS_PATH", wpath),
         mock.patch.object(aw, "LAST_RUN_PATH", tmp / "last_run.json"),
         mock.patch.object(aw, "PAUSE_FLAG", tmp / "no.flag"),
+        mock.patch.object(aw, "LOCK_PATH", lock),
         mock.patch.object(aw, "ROOT", tmp),
         mock.patch.object(aw, "load_env", return_value={}),
         mock.patch.object(aw, "find_git_exe", return_value="git"),
@@ -111,5 +118,5 @@ def run_analyze(test, pending, workouts, llm_edit=None, vision=None, activities=
 
     return SimpleNamespace(
         calls=calls, workouts=read(wpath)["workouts"], pending=read(pending_path),
-        last_run=read(tmp / "last_run.json"), archive=read(tmp / "archive.json"),
+        last_run=read(tmp / "last_run.json"), archive=read(tmp / "archive.json"), lock_exists=lock.exists(),
     )

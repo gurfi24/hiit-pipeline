@@ -38,6 +38,7 @@ import os
 import re
 import subprocess
 import sys
+import time
 from datetime import date, datetime
 from pathlib import Path
 
@@ -56,6 +57,8 @@ ENV_PATH = ROOT / ".env"
 PAUSE_FLAG = ROOT / "automation_paused.flag"
 LAST_RUN_PATH = ROOT / "data" / "last_run.json"
 WORKOUTS_PATH = ROOT / "data" / "workouts.json"
+LOCK_PATH = ROOT / "data" / "analyze.lock"  # gitignored: exists while a run is active
+LOCK_STALE_S = 30 * 60  # a lock older than this is from a crashed run
 BUDGET_CEILING_USD = 0.50
 GARMIN_LOOKBACK_DAYS = 7  # the plain automatic sync stays at 7 days
 MAX_WORKOUT_AGE_DAYS = workout_date.MAX_AGE_DAYS  # /start widens the lookback this far for older explicit dates
@@ -403,8 +406,39 @@ def process_one(target_date, group, vision_cost, activities, env, send, git_exe)
     return {"status": "ok", "message": f"analyzed {target_date}", "cost": cost_usd, "new": 0 if is_existing else 1}
 
 
+def acquire_run_lock():
+    """True if this process now owns the run lock, False if another run is active."""
+    LOCK_PATH.parent.mkdir(parents=True, exist_ok=True)
+    for _ in range(2):
+        try:
+            fd = os.open(LOCK_PATH, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+        except FileExistsError:
+            try:
+                if time.time() - LOCK_PATH.stat().st_mtime < LOCK_STALE_S:
+                    return False
+                LOCK_PATH.unlink()  # stale: the previous run crashed
+            except FileNotFoundError:
+                pass  # released in the meantime, retry
+            continue
+        with os.fdopen(fd, "w") as f:
+            f.write(str(os.getpid()))
+        return True
+    return False
+
+
 def main():
     env_setup.configure_stdio()
+    # Two /start in one poll (or overlapping polls) must not run two paid analyses.
+    if not acquire_run_lock():
+        print("Another analysis run is active -- exiting.")
+        return
+    try:
+        _main()
+    finally:
+        LOCK_PATH.unlink(missing_ok=True)
+
+
+def _main():
     env = load_env()
     telegram_token = env.get("TELEGRAM_BOT_TOKEN")
     state_path = ROOT / "data" / "telegram_state.json"

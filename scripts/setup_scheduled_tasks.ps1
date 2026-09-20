@@ -16,8 +16,9 @@
 
 $ErrorActionPreference = "Stop"
 
-$pythonExe = "C:\Users\gurfi\AppData\Local\Programs\Python\Python310\python.exe"
 $projectDir = "C:\Users\gurfi\hiit-pipeline"
+# The launcher sets absolute python/git/claude PATH + PYTHONIOENCODING=utf-8, cds to the project and logs to logs\telegram_bot.log.
+$launcher = "$projectDir\scripts\run_task.cmd"
 $currentUser = "$env:COMPUTERNAME\$env:USERNAME"
 
 # Lightweight poller, hourly at :30, catch up if missed.
@@ -25,9 +26,9 @@ $now = Get-Date
 $nextHalfHour = Get-Date -Hour $now.Hour -Minute 30 -Second 0
 if ($now.Minute -ge 30) { $nextHalfHour = $nextHalfHour.AddHours(1) }
 
-$pollerAction = New-ScheduledTaskAction -Execute $pythonExe -Argument "telegram_bot.py" -WorkingDirectory $projectDir
+$pollerAction = New-ScheduledTaskAction -Execute $launcher -Argument "telegram_bot.py" -WorkingDirectory $projectDir
 $pollerTrigger = New-ScheduledTaskTrigger -Once -At $nextHalfHour -RepetitionInterval (New-TimeSpan -Hours 1) -RepetitionDuration (New-TimeSpan -Days 3650)
-$pollerSettings = New-ScheduledTaskSettingsSet -StartWhenAvailable -ExecutionTimeLimit (New-TimeSpan -Minutes 5) -DontStopOnIdleEnd
+$pollerSettings = New-ScheduledTaskSettingsSet -StartWhenAvailable -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -ExecutionTimeLimit (New-TimeSpan -Minutes 5) -DontStopOnIdleEnd
 $pollerPrincipal = New-ScheduledTaskPrincipal -UserId $currentUser -LogonType Interactive -RunLevel Limited
 
 Register-ScheduledTask -TaskName "HIIT-Pipeline-Poller" `
@@ -46,3 +47,4 @@ if (Get-ScheduledTask -TaskName "HIIT-Pipeline-HeavyRun" -ErrorAction SilentlyCo
 Write-Host ""
 Write-Host "Verifying:"
 Get-ScheduledTask -TaskName "HIIT-Pipeline-Poller" | Format-Table TaskName, State
+Get-ScheduledTaskInfo -TaskName "HIIT-Pipeline-Poller" | Format-Table LastRunTime, LastTaskResult, NextRunTime
