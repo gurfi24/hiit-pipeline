@@ -404,6 +404,7 @@ def process_one(target_date, group, vision_cost, activities, env, send, git_exe)
 
 
 def main():
+    env_setup.configure_stdio()
     env = load_env()
     telegram_token = env.get("TELEGRAM_BOT_TOKEN")
     state_path = ROOT / "data" / "telegram_state.json"

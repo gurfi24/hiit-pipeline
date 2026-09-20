@@ -75,6 +75,12 @@ class BotIntakeTests(unittest.TestCase):
         self.assertIn(YDAY_DDMM, replies[0])  # photo reply says which workout date was detected
         popen.assert_called_once()  # /start spawned the analysis
 
+    def test_start_spawns_the_analysis_with_utf8_output(self):
+        # The detached child must not inherit a cp1252 console encoding.
+        _, popen, _ = self.run_bot([update(1, text="/start")])
+        popen.assert_called_once()
+        self.assertEqual(popen.call_args.kwargs["env"]["PYTHONIOENCODING"], "utf-8")
+
     def test_text_without_a_date_stays_undated(self):
         replies, _, _ = self.run_bot([update(1, text="First amrap with a 18 kg dumbbell, I did 2.5 rounds")])
         ((_, e),) = pending_store.entries()

@@ -534,6 +534,7 @@ def _full_history_walk(client, hr_zones, known_ids):
 
 
 def main():
+    env_setup.configure_stdio()
     import garmin_health  # lazy: garmin_health imports FROM this module, so a top-level import here would be circular
 
     parser = argparse.ArgumentParser()

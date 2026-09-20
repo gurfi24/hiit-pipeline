@@ -1,7 +1,9 @@
 """/start: the workout date comes from content (text, then photo), is never guessed,
 and the whole run stays within the $0.50 cap. No network; LLM/vision/Garmin faked."""
 
+import io
 import json
+import os
 import subprocess
 import sys
 import unittest
@@ -179,6 +181,21 @@ class LookbackAndWindowTests(unittest.TestCase):
         self.assertEqual(list(r.archive), ["OLD"])
         self.assertEqual(list(r.pending), ["NEW"])
         self.assertTrue(any("🗄️" in m for m in r.calls.telegram))
+
+    def test_archive_print_survives_a_cp1252_stdout(self):
+        # A Windows console/pipe is cp1252: printing Hebrew/emoji labels used to
+        # raise UnicodeEncodeError before any analysis ran. Simulate that stream
+        # explicitly so the test fails on any machine if the fix is removed.
+        now = datetime.now(support.LOCAL_TZ)
+        p = {"OLD": entry(sent_at=now - timedelta(days=31))}
+        out = io.TextIOWrapper(io.BytesIO(), encoding="cp1252", errors="strict")
+        err = io.TextIOWrapper(io.BytesIO(), encoding="cp1252", errors="strict")
+        with mock.patch.object(sys, "stdout", out), mock.patch.object(sys, "stderr", err),                 mock.patch.dict(os.environ):
+            r = run_analyze(self, p, [], activities=[])
+            self.assertEqual(os.environ["PYTHONIOENCODING"], "utf-8")  # children inherit it
+        self.assertEqual(list(r.archive), ["OLD"])
+        out.flush()
+        self.assertIn("Archived stale pending entries", out.buffer.getvalue().decode("utf-8"))
 
 
 class MoreMultiEntryTests(unittest.TestCase):

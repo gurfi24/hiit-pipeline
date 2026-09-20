@@ -7,7 +7,8 @@ whether a script is run by hand from anywhere, via Task Scheduler, or
 spawned as a subprocess from another script in this project.
 
 Every entry point (garmin_sync.py, analyze_workout.py, telegram_bot.py,
-scripts/garmin_login.py) must call load() before touching any GARMIN_*/
+scripts/garmin_login.py, scripts/telegram_pending_check.py) must call
+configure_stdio() first thing in main(), and load() before touching any GARMIN_*/
 TELEGRAM_*/GITHUB_*/BIRTH_DATE env var.
 
 Uses python-dotenv if installed; falls back to a small manual parser
@@ -36,6 +37,25 @@ def compute_age(env=None):
         return None
     today = date.today()
     return today.year - birth.year - ((today.month, today.day) < (birth.month, birth.day))
+
+
+def configure_stdio():
+    """Make this process (and every subprocess it spawns) UTF-8 safe on Windows.
+
+    A Windows console/pipe defaults to the locale codepage (cp1252 here), so a
+    plain print() of Hebrew or emoji text raises UnicodeEncodeError. Call this
+    first thing in every entry script's main(): stdout/stderr are switched to
+    UTF-8 with errors="replace" (a print can never crash the run) and
+    PYTHONIOENCODING=utf-8 is exported so children inherit the same behavior.
+    """
+    import os
+    import sys
+
+    for stream in (sys.stdout, sys.stderr):
+        reconfigure = getattr(stream, "reconfigure", None)  # absent on StringIO etc.
+        if reconfigure:
+            reconfigure(encoding="utf-8", errors="replace")
+    os.environ["PYTHONIOENCODING"] = "utf-8"
 
 
 def load():

@@ -31,6 +31,7 @@ import garmin_health  # noqa: E402
 
 
 def main():
+    env_setup.configure_stdio()
     env = {k: os.environ.get(k) for k in ("GARMIN_EMAIL", "GARMIN_PASSWORD", "GITHUB_TOKEN", "TELEGRAM_BOT_TOKEN")}
     telegram_token = env.get("TELEGRAM_BOT_TOKEN")
     chat_id = None

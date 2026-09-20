@@ -6633,7 +6633,66 @@
       "z2_min": 20.9,
       "z3_min": 11.1,
       "z4_min": 11.2,
-      "z5_min": 0.0
+      "z5_min": 0.0,
+      "image": "boards/2026-09-19.jpg",
+      "notes": "First amrap with a 18 kg dumbbell\nI did 2.5 rounds within the 10 minutes time limit\nDid a 5 minutes rest\nSecond amrap with 2 15 kg dumbbells, I did 2.5 rounds within the 10 minutes time limit",
+      "exercises": [
+        {
+          "name": "AMRAP 1 (10 min): 15 Toes to Bar",
+          "weight": null,
+          "result": "2.5 rounds total (target: close 3rd round)"
+        },
+        {
+          "name": "AMRAP 1: 12 Alt. DB Snatches",
+          "weight": "18 kg (board: 22.5 kg)",
+          "result": "part of the 2.5 rounds"
+        },
+        {
+          "name": "AMRAP 1: 9 Box Jump Overs (76 cm)",
+          "weight": null,
+          "result": "part of the 2.5 rounds"
+        },
+        {
+          "name": "AMRAP 1: 6 Bar Muscle Ups",
+          "weight": null,
+          "result": "part of the 2.5 rounds"
+        },
+        {
+          "name": "AMRAP 1: 3 Wall Walks",
+          "weight": null,
+          "result": "part of the 2.5 rounds"
+        },
+        {
+          "name": "Rest",
+          "weight": null,
+          "result": "5 min"
+        },
+        {
+          "name": "AMRAP 2 (10 min): 15/12 Cal Bike",
+          "weight": null,
+          "result": "2.5 rounds total (target: open 4th round)"
+        },
+        {
+          "name": "AMRAP 2: 12m DBs Alt. Walking Lunges",
+          "weight": "2 x 15 kg (board: 22.5/15 kg)",
+          "result": "part of the 2.5 rounds"
+        },
+        {
+          "name": "AMRAP 2: 10 Line Facing Burpees",
+          "weight": null,
+          "result": "part of the 2.5 rounds"
+        }
+      ],
+      "insights": [
+        "AMRAP 1: 2.5 rounds in 10 min with an 18 kg dumbbell (board: 22.5 kg) -- half a round short of the 'close 3rd round' target.",
+        "AMRAP 2: 2.5 rounds with 2x15 kg dumbbells -- about 1.5 rounds short of the 'open 4th round' target.",
+        "Both AMRAPs were scaled below the board weights and still landed at exactly 2.5 rounds; the gymnastics volume (15 toes to bar, 6 bar muscle-ups) likely set the pace.",
+        "Avg HR 128, max 165 (~93% of an estimated max for age 43) -- solid but not a peak effort.",
+        "Aerobic TE 3.0 but anaerobic TE only 1.3 and 0 min in zone 5 -- moderate-endurance stimulus rather than an all-out one.",
+        "11.1 min in zone 3 and 11.2 min in zone 4: about 22 of 57 min hard, in line with two 10-min AMRAPs.",
+        "At 43, keep the full 5 min rest between AMRAPs and prioritize sleep and hydration for recovery over the next day or two."
+      ],
+      "comparison": "No earlier sessions have logged exercises/results, so this is compared by HR profile and duration. Closest match: 22 Aug (62 min, avg HR 128, TE 3.0) -- same average HR and TE, but that session had 25.8 min in zone 4 and 2.6 in zone 5 versus 11.2 and 0 today. Keep: steady ~128 avg HR and TE 3.0 with a full 5 min rest between AMRAPs. Improve: more time in zones 4-5 inside the AMRAPs (faster transitions, less rest between movements), and work toward the board weights (22.5 kg) over the next sessions."
     }
   ]
 }

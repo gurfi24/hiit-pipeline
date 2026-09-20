@@ -25,6 +25,7 @@ Usage:
 """
 
 import json
+import os
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -100,6 +101,7 @@ def handle_start(base, chat_id):
     subprocess.Popen(
         [sys.executable, str(ROOT / "analyze_workout.py")],
         cwd=ROOT,
+        env={**os.environ, "PYTHONIOENCODING": "utf-8"},  # Hebrew output must not crash on a cp1252 console
         creationflags=subprocess.CREATE_NO_WINDOW | subprocess.DETACHED_PROCESS,
     )
 
@@ -158,6 +160,7 @@ COMMANDS = {
 
 
 def main():
+    env_setup.configure_stdio()
     token = load_env().get("TELEGRAM_BOT_TOKEN")
     if not token:
         sys.exit("TELEGRAM_BOT_TOKEN missing from .env")
