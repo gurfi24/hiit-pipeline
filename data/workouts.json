@@ -6694,6 +6694,79 @@
         "At 43, keep about 48 h before the next high-intensity session and prioritise sleep and hydration."
       ],
       "comparison": "No earlier session has exercises or results stored, so this is compared on HR profile and structure. Closest match: 08-22 (62 min, avg HR 128, TE 3.0), which had 25.8 min in Z4 and 2.6 in Z5 against 11.2 min in Z4 and 0 in Z5 today. Keep: the steady ~128 avg HR and TE 3.0, and the 5-min rest that let the second AMRAP start fresh. Improve: more time in Z4-Z5 inside the AMRAPs (shorter transitions and less stopping between movements), close round 3 in AMRAP 1 and open round 4 in AMRAP 2 next time, and move the snatches toward the 22.5 kg on the board."
+    },
+    {
+      "activity_id": "garmin_24465552391",
+      "source": "garmin",
+      "name": "CrossFit no-gps",
+      "type": "HIIT",
+      "start_time": "2026-09-23T09:04:18",
+      "duration_min": 56.2,
+      "avg_hr": 123.0,
+      "max_hr": 163.0,
+      "calories": 455.0,
+      "training_effect": 2.9000000953674316,
+      "anaerobic_training_effect": 1.100000023841858,
+      "z0_min": 1.9,
+      "z1_min": 17.9,
+      "z2_min": 19.2,
+      "z3_min": 13.9,
+      "z4_min": 3.4,
+      "z5_min": 0.0,
+      "image": "boards/2026-09-23.jpg",
+      "notes": "Workout 23/09/2026\n\nBench press weights:\nSet 1-2 40 kg 10 reps\nSet 3-4 50 kg 8 reps\nSet 5 45 kg 8 reps\n\nWod:\nInstead of hand stand push up I did pike push ups from the floor\n1100 bike instead of run\nDumbbell thrusters 15 kg\n\nFinished in 19:30 minutes",
+      "exercises": [
+        {
+          "name": "Bench Press (sets 1-2, every 2:00 x5 program)",
+          "weight": "40 kg",
+          "result": "10 reps per set"
+        },
+        {
+          "name": "Bench Press (sets 3-4)",
+          "weight": "50 kg",
+          "result": "8 reps per set"
+        },
+        {
+          "name": "Bench Press (set 5, board called for heaviest load)",
+          "weight": "45 kg",
+          "result": "8 reps (board prescribed 6)"
+        },
+        {
+          "name": "For Time: 20 Pike Push-ups from floor (sub Handstand Push-ups) x2",
+          "weight": null,
+          "result": "part of 19:30"
+        },
+        {
+          "name": "For Time: 3 Rope Climbs x2",
+          "weight": null,
+          "result": "part of 19:30"
+        },
+        {
+          "name": "For Time: Bike (sub 400m run legs)",
+          "weight": null,
+          "result": "1100 m total, part of 19:30"
+        },
+        {
+          "name": "For Time: 30 Dumbbell Thrusters",
+          "weight": "15 kg (board: 22/15 kg)",
+          "result": "part of 19:30"
+        },
+        {
+          "name": "For Time -- total",
+          "weight": null,
+          "result": "19:30 minutes"
+        }
+      ],
+      "insights": [
+        "Bench press: 40 kg x10 (sets 1-2) -> 50 kg x8 (sets 3-4) -> 45 kg x8 (set 5) -- the board's ascending plan called for the heaviest load on set 5, but the top set actually dropped 5 kg from sets 3-4.",
+        "WOD for time: pike push-ups from the floor subbed for handstand push-ups, ~1100 m bike subbed for the 400 m run legs, dumbbell thrusters at 15 kg (board prescribed 22/15 kg) -- finished in 19:30.",
+        "HR: avg 123, max 163 (about 92% of an estimated ~177 max at age 43) -- a controlled effort with no time in Z5.",
+        "Zones: only 3.4 min in Z4 and 0 in Z5, versus 37 min combined in Z1-Z2 -- the heavier bench press block likely ate into metcon intensity.",
+        "Aerobic training effect 2.9 (improving range), anaerobic 1.1 -- a moderate stimulus, lighter than a pure metcon day.",
+        "At 43, the modest anaerobic load (1.1) and low Z4/Z5 time mean recovery should be quick -- normal rest before the next high-intensity session is fine.",
+        "Both HSPU-to-pike-push-up and run-to-bike substitutions reduced skill/impact demand, which combined with the lighter 15 kg thruster likely helped hit the sub-20-minute finish."
+      ],
+      "comparison": "No earlier session shares these exact exercises, so this is compared on duration/HR profile. Closest match: 09-19 (56.8 min, avg HR 128, max 165, TE 3.0), which had 11.2 min in Z4 and 8.0 min in Z1 against 3.4 min in Z4 and 17.9 min in Z1 today. Keep: similar total duration (~56 min) and a controlled max HR in the low 160s. Improve: today ran noticeably cooler (avg HR 123 vs 128, far less Z4 time) -- likely from the strength block up front; pushing pace harder in the WOD portion, and working the thruster load back toward the board's 22/15 kg, would raise the metcon-specific intensity closer to 09-19's."
     }
   ]
 }
