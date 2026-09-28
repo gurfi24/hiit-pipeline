@@ -1,6 +1,6 @@
 # HIIT Workout Log
 
-Compact one-line-per-workout log, regenerated from `data/workouts.json`. 353 workouts total.
+Compact one-line-per-workout log, regenerated from `data/workouts.json`. 354 workouts total.
 
 - 2012-04-20 | Running | Garmin running | 0.4 min | source: garmin
 - 2012-04-26 | Running | Garmin running | 49 min, avg HR 148 | source: garmin
@@ -355,3 +355,4 @@ Compact one-line-per-workout log, regenerated from `data/workouts.json`. 353 wor
 - 2026-09-15 | HIIT | CrossFit no-gps | 65.1 min, avg HR 124 | source: garmin
 - 2026-09-19 | HIIT | CrossFit no-gps | 56.8 min, avg HR 128 | source: garmin
 - 2026-09-23 | HIIT | CrossFit no-gps | 56.2 min, avg HR 123 | source: garmin
+- 2026-09-28 | HIIT | CrossFit no-gps | 68.4 min, avg HR 128 | source: garmin
