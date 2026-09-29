@@ -6715,7 +6715,8 @@
       "z5_min": 0.0,
       "image": [
         "boards/2026-09-23.jpg",
-        "boards/2026-09-23_2.jpg"
+        "boards/2026-09-23_2.jpg",
+        "boards/2026-09-23_3.jpg"
       ],
       "notes": "Workout 23/09/2026\n\nBench press weights:\nSet 1-2 40 kg 10 reps\nSet 3-4 50 kg 8 reps\nSet 5 45 kg 8 reps\n\nWod:\nInstead of hand stand push up I did pike push ups from the floor\n1100 bike instead of run\nDumbbell thrusters 15 kg\n\nFinished in 19:30 minutes",
       "exercises": [
@@ -6789,8 +6790,12 @@
       "z3_min": 17.4,
       "z4_min": 7.3,
       "z5_min": 0.1,
-      "image": "boards/2026-09-28.jpg",
-      "notes": "Workout 28-09-2026\n\nfront squat\nevery 2:30x5\nset 1-2 70% 8 reps 40\nset 3-4 78% 8 reps 45 \nset 5 82-85% 5 reps 55 kg\n\nMetcon for time\n9-7-5 front squat 50 kg\n36-28-20 pull ups\n\nAccessory work 4 sets\nDumbbell chest press from the floor 2 dumbbells of 15 kg 10 reps\n12 Romanian deadlift with 2 dumbbells of 15 kg",
+      "image": [
+        "boards/2026-09-28.jpg",
+        "boards/2026-09-28_2.jpg",
+        "boards/2026-09-28_3.jpg"
+      ],
+      "notes": "Workout 28-09-2026\n\nfront squat\nevery 2:30x5\nset 1-2 70% 8 reps 40\nset 3-4 78% 8 reps 45 \nset 5 82-85% 5 reps 55 kg\n\nMetcon for time\n9-7-5 front squat 50 kg\n36-28-20 pull ups\nCompleted in 10:04 minutes \n\nAccessory work 4 sets\nDumbbell chest press from the floor 2 dumbbells of 15 kg 10 reps\n12 Romanian deadlift with 2 dumbbells of 15 kg",
       "exercises": [
         {
           "name": "Front Squat EMOM (every 2:30 x5, sets 1-2)",
@@ -6809,13 +6814,13 @@
         },
         {
           "name": "Metcon for time: 9-7-5 Front Squat",
-          "weight": "50 kg",
-          "result": "no time recorded"
+          "weight": "50 kg (board Rx 80/50 kg)",
+          "result": "part of 10:04"
         },
         {
           "name": "Metcon for time: 36-28-20 Pull-ups",
           "weight": null,
-          "result": "no time recorded"
+          "result": "part of 10:04"
         },
         {
           "name": "Accessory (4 sets): Dumbbell Chest Press from floor",
@@ -6830,15 +6835,15 @@
       ],
       "insights": [
         "Front squat EMOM (every 2:30 x5): 40 kg x8 (70%, sets 1-2) -> 45 kg x8 (78%, sets 3-4) -> 55 kg x5 (82-85%, set 5) -- a clean ascending strength ramp, putting estimated 1RM around 65-67 kg.",
-        "Metcon for time (9-7-5 front squat at 50 kg, between the two heaviest strength loads, with 36-28-20 pull-ups) -- no finish time was recorded, so pace can't be tracked for this one.",
+        "Metcon for time (9-7-5 front squat at 50 kg, with 36-28-20 pull-ups) finished in 10:04 -- the first front squat session logged, so no prior pace to compare against yet.",
         "Accessory block, 4 sets: dumbbell chest press from the floor at 2x15 kg for 10 reps, and Romanian deadlifts at 2x15 kg for 12 reps.",
         "HR: avg 128, max 173 -- about 98% of an estimated ~177 max at age 43, the highest max-HR spike of the last three logged sessions.",
         "Zones: 32.3 min in Z2 and 17.4 in Z3 dominate, with 7.3 min in Z4 and only 0.1 in Z5 -- consistent with EMOM strength work punctuated by a harder metcon push.",
         "Duration 68.4 min is the longest of the recent CrossFit sessions (vs 56.8 min on 09-19 and 56.2 min on 09-23), driven by the 5-set strength EMOM plus a 4-set accessory finisher.",
         "Training effect: aerobic 3.0 (improving), anaerobic 2.0 -- the highest anaerobic stimulus of the last three sessions (1.3 and 1.1), reflecting the heavier loaded metcon and strength volume.",
-        "At 43, log the metcon time and the front squat 1RM next time to make future sessions comparable, and allow at least 48h before the next high-intensity session given the 2.0 anaerobic effect and 173 max HR."
+        "At 43, log the front squat 1RM next time now that a metcon time is tracked too, and allow at least 48h before the next high-intensity session given the 2.0 anaerobic effect and 173 max HR."
       ],
-      "comparison": "No earlier session has front squat or pull-up numbers logged, so this compares on duration/HR/structure against the two most recent detailed sessions. At 68.4 min this is the longest of the three (vs 56.8 min on 09-19 and 56.2 min on 09-23), with the same avg HR (128) as 09-19 but the highest max HR (173 vs 165 and 163) and the highest anaerobic training effect (2.0 vs 1.3 and 1.1). Keep: avg HR held steady at 128 even with heavy front-squat strength work added on top of a metcon. Improve: record the 9-7-5/36-28-20 metcon finish time next time so pace can actually be compared session to session."
+      "comparison": "No earlier session has front squat or pull-up numbers logged, so this compares on duration/HR/structure against the two most recent detailed sessions. At 68.4 min this is the longest of the three (vs 56.8 min on 09-19 and 56.2 min on 09-23), with the same avg HR (128) as 09-19 but the highest max HR (173 vs 165 and 163) and the highest anaerobic training effect (2.0 vs 1.3 and 1.1). It's also the first of the three with a recorded metcon finish time (10:04) on top of a full 5-set strength EMOM, whereas 09-19 was AMRAP-based (no time) and 09-23 logged 19:30 for a different complex. Keep: avg HR held steady at 128 even with heavy front-squat strength work added on top of a metcon. Improve: log the front squat 1RM test next time so future sessions become fully comparable."
     }
   ]
 }
